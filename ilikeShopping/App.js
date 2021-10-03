@@ -5,15 +5,20 @@
  * @format
  * @flow strict-local
  */
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
-const ilikeShopping = () => {
+function ilikeShopping() {
+  setTimeout(() => {
+    SplashScreen.hide();
+  }, 500);
+
   return (
     <View>
       <Text>Hello World</Text>
     </View>
   );
-};
+}
 
 export default ilikeShopping;
