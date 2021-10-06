@@ -8,6 +8,7 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import bottomNav from './components/bottomNav';
 
 function ilikeShopping() {
   setTimeout(() => {
@@ -15,9 +16,12 @@ function ilikeShopping() {
   }, 500);
 
   return (
-    <View>
-      <Text>Hello World</Text>
-    </View>
+    <>
+      <View>
+        <Text>Hello World</Text>
+      </View>
+      <bottomNav />
+    </>
   );
 }
 

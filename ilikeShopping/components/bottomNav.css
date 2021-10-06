@@ -1,0 +1,12 @@
+nav {
+    overflow: hidden;
+}
+
+nav > div {
+    text-align: center;
+    float: left;
+    width: 20%;
+
+    height: 45px;
+    line-height: 45px;
+}
