@@ -4,40 +4,40 @@ import SplashScreen from 'react-native-splash-screen';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-function Home() {
+function Home(props) {
   return (
     <View style={styles.eachView}>
       <Text> 홈 화면 입니다.</Text>
       <Button
         title="쇼핑 카트 화면으로 가기"
-        onPress={() => this.props.navigation.navigate('ShoppingCart')}
+        onPress={() => props.navigation.navigate('ShoppingCart')}
       />
       <Button
         title="설정 화면으로 가기"
-        onPress={() => this.props.navigation.navigate('Setting')}
+        onPress={() => props.navigation.navigate('Setting')}
       />
     </View>
   );
 }
-function ShoppingCart() {
+function ShoppingCart(props) {
   return (
     <View style={styles.eachView}>
       <Text> 쇼핑 카트 화면 입니다.</Text>
       <Button
         title="홈 화면으로 가기"
-        onPress={() => this.props.navigation.navigate('Home')}
+        onPress={() => props.navigation.navigate('Home')}
       />
     </View>
   );
 }
 
-function Setting() {
+function Setting(props) {
   return (
     <View style={styles.eachView}>
       <Text> 설정 화면 입니다.</Text>
       <Button
         title="홈 화면으로 가기"
-        onPress={() => this.props.navigation.navigate('Home')}
+        onPress={() => props.navigation.navigate('Home')}
       />
     </View>
   );
