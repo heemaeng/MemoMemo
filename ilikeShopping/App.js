@@ -80,14 +80,6 @@
 //     alignItems: 'center',
 //   },
 // });
-
-// export default ilikeShopping;
-import * as React from 'react';
-// import {View, Text, StyleSheet, Button} from 'react-native';
-// import SplashScreen from 'react-native-splash-screen';
-// import {createAppContainer} from 'react-navigation';
-// import {createStackNavigator} from 'react-navigation-stack';
-
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import HomeScreen from './components/HomeScreen';
@@ -119,11 +111,3 @@ export default function App() {
 
   return createAppContainer(TabNavigator);
 }
-
-// function ilikeShopping() {
-//   setTimeout(() => {
-//     SplashScreen.hide();
-//   }, 500);
-
-//   return <AppContainer />;
-// }
