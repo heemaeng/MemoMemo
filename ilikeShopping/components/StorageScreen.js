@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 export default function StorageScreen() {
   return (
     <View style={styles.container}>
-      <Text>홈 화면 입니다.</Text>
+      <Text>냉장고 화면 입니다.</Text>
     </View>
   );
 }

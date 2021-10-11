@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 export default function ShoppingCartScreen() {
   return (
     <View style={styles.container}>
-      <Text>홈 화면 입니다.</Text>
+      <Text>쇼핑 화면 입니다.</Text>
     </View>
   );
 }
