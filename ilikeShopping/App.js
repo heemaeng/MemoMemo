@@ -1,3 +1,4 @@
+//App.js
 import * as React from 'react';
 import {Text, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
