@@ -8,6 +8,7 @@ import HomeScreen from './components/HomeScreen';
 import SettingsScreen from './components/SettingsScreen';
 import ShoppingCartScreen from './components/ShoppingCartScreen';
 import StorageScreen from './components/StorageScreen';
+import Icon from 'react-native-vector-icons';
 
 const Tab = createBottomTabNavigator();
 
