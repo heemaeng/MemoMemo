@@ -1,12 +1,73 @@
-/*HomeScreen.js*/
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>홈 화면 입니다.</Text>
-    </View>
+    <>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <Text>홈 화면 입니다.</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <Text>홈 화면 입니다.</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <Text>홈 화면 입니다.</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <Text>홈 화면 입니다.</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <Text>홈 화면 입니다.</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <Text>홈 화면 입니다.</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <Text>홈 화면 입니다.</Text>
+      </View>
+    </>
   );
 }
 
