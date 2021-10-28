@@ -5,67 +5,29 @@ export default function HomeScreen() {
   return (
     <>
       <ScrollView style={styles.coinView}>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 100,
-            padding: 5,
-          }}>
-          <View style={{backgroundColor: 'blue', flex: 1}} />
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_blue} />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 100,
-            padding: 20,
-          }}>
-          <View style={{backgroundColor: 'blue', flex: 0.3}} />
-          <Text>홈 화면 입니다.</Text>
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_green} />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 100,
-            padding: 20,
-          }}>
-          <View style={{backgroundColor: 'blue', flex: 0.3}} />
-          <Text>홈 화면 입니다.</Text>
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_blue} />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 100,
-            padding: 20,
-          }}>
-          <View style={{backgroundColor: 'blue', flex: 0.3}} />
-          <Text>홈 화면 입니다.</Text>
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_green} />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 100,
-            padding: 20,
-          }}>
-          <View style={{backgroundColor: 'blue', flex: 0.3}} />
-          <Text>홈 화면 입니다.</Text>
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_blue} />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 100,
-            padding: 20,
-          }}>
-          <View style={{backgroundColor: 'blue', flex: 0.3}} />
-          <Text>홈 화면 입니다.</Text>
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_green} />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 100,
-            padding: 20,
-          }}>
-          <View style={{backgroundColor: 'blue', flex: 0.3}} />
-          <Text>홈 화면 입니다.</Text>
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_blue} />
+        </View>
+        <View style={styles.viewContainer}>
+          <View style={styles.subView_green} />
         </View>
       </ScrollView>
     </>
@@ -83,5 +45,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'transparent',
+  },
+  viewContainer: {
+    flexDirection: 'row',
+    height: 100,
+  },
+  subView_blue: {
+    backgroundColor: 'blue',
+    flex: 1,
+  },
+  subView_green: {
+    backgroundColor: 'green',
+    flex: 1,
   },
 });
