@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
@@ -7,7 +8,17 @@ import ShoppingCartScreen from './ShoppingCartScreen';
 import StorageScreen from './StorageScreen';
 
 const Tab = createBottomTabNavigator();
-
+const LogoTitle = () => {
+  return (
+    <Image
+      style={{width: 50, height: 50}}
+      source={require('../assets/images/leftLogo.png')}
+    />
+  );
+};
+const InsertLogo = () => {
+  return <Icon name="add-circle-outline" size={35} />;
+};
 export function Tabs() {
   return (
     <Tab.Navigator
@@ -23,8 +34,10 @@ export function Tabs() {
           tabBarIcon: ({color}) => (
             <Icon name="home-outline" color={color} size={28} />
           ),
-          headerTitleAlign: 'center',
-          headerTintColor: '#000',
+          headerTitle: props => <LogoTitle {...props} />,
+          headerTitleContainerStyle: {
+            marginLeft: 5,
+          },
         }}
       />
       <Tab.Screen
@@ -35,7 +48,14 @@ export function Tabs() {
           tabBarIcon: ({color}) => (
             <Icon name="cart-outline" color={color} size={28} />
           ),
-          headerTitleAlign: 'center',
+          headerTitle: props => <LogoTitle {...props} />,
+          headerRight: props => <InsertLogo {...props} />,
+          headerTitleContainerStyle: {
+            marginLeft: 5,
+          },
+          headerRightContainerStyle: {
+            paddingRight: 5,
+          },
         }}
       />
       <Tab.Screen
@@ -46,7 +66,10 @@ export function Tabs() {
           tabBarIcon: ({color}) => (
             <Icon name="reader-outline" color={color} size={28} />
           ),
-          headerTitleAlign: 'center',
+          headerTitle: props => <LogoTitle {...props} />,
+          headerTitleContainerStyle: {
+            marginLeft: 5,
+          },
         }}
       />
       <Tab.Screen
@@ -57,7 +80,10 @@ export function Tabs() {
           tabBarIcon: ({color}) => (
             <Icon name="options-outline" color={color} size={28} />
           ),
-          headerTitleAlign: 'center',
+          headerTitle: props => <LogoTitle {...props} />,
+          headerTitleContainerStyle: {
+            marginLeft: 5,
+          },
         }}
       />
     </Tab.Navigator>
