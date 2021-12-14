@@ -1,7 +1,12 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import AddButton from '../components/add-button';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
+  const onAdd = () => {
+    navigation.navigate('Modal');
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -12,6 +17,7 @@ export default function HomeScreen() {
           <Text style={styles.textStyle}>이번 달 유통기한 마감</Text>
         </View>
       </ScrollView>
+      <AddButton onAdd={onAdd} />
     </View>
   );
 }

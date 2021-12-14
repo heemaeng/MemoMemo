@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import {NavigationContainer} from '@react-navigation/native';
-import {Tabs} from './modules/BottomTab';
+import Navigator from './src/components/tab-bar';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import SafeViewAndroid from './modules/SafeViewAndroid';
+import SafeViewAndroid from './src/modules/SafeViewAndroid';
 
 export default function App() {
   setTimeout(() => {
@@ -15,9 +14,7 @@ export default function App() {
   StatusBar.setBarStyle('dark-content');
   return (
     <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
-      <NavigationContainer>
-        <Tabs />
-      </NavigationContainer>
+      <Navigator />
     </SafeAreaView>
   );
 }
