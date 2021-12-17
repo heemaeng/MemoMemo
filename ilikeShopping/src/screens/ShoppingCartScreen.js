@@ -1,25 +1,12 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import Sqlite from '../components/sqlite';
 
 const ShoppingListItem = () => {
   return (
-    <>
-      <View style={styles.item}>
-        <Text>아이템1</Text>
-      </View>
-      <View style={styles.item}>
-        <Text>아이템2</Text>
-      </View>
-      <View style={styles.item}>
-        <Text>아이템3</Text>
-      </View>
-      <View style={styles.item}>
-        <Text>아이템4</Text>
-      </View>
-      <View style={styles.item}>
-        <Text>아이템5</Text>
-      </View>
-    </>
+    <View>
+      <Text>이곳에 쇼핑메모</Text>
+    </View>
   );
 };
 
@@ -27,7 +14,7 @@ export default function ShoppingCartScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <ShoppingListItem />
+        <Sqlite />
       </ScrollView>
     </View>
   );

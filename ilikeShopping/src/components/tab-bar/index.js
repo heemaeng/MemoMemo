@@ -8,18 +8,8 @@ import HomeScreen from '../../screens/HomeScreen';
 import SettingsScreen from '../../screens/SettingsScreen';
 import ShoppingCartScreen from '../../screens/ShoppingCartScreen';
 import StorageScreen from '../../screens/StorageScreen';
+import ModalScreen from '../../screens/ModalScreen';
 
-const ModalScreen = () => (
-  <View
-    style={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#f8ffd7',
-    }}>
-    <Text>Modal</Text>
-  </View>
-);
 const opacityTransition = {
   transitionSpec: {
     open: {
@@ -42,7 +32,7 @@ const LogoTitle = () => {
   return (
     <Image
       style={{width: 50, height: 50}}
-      source={require('../../assets/images/leftLogo.png')}
+      source={require('../../../assets/images/leftLogo.png')}
     />
   );
 };
@@ -71,7 +61,7 @@ const TabBarStackScreen = () => (
       },
     }}>
     <TabBarStack.Screen
-      name="홈"
+      name="Home"
       component={HomeScreen}
       options={{
         tabBarLabel: '홈',
