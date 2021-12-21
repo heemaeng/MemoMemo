@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-
+// 항목을 눌렀을 때 새로운 화면이 나타나고 구매한 이력 (그래프) 표시
 const StorageListItem = () => {
   return (
     <>
