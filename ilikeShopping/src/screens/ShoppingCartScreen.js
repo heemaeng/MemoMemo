@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import Sqlite from '../components/sqlite';
+// import Sqlite from '../components/sqlite';
 
 const ShoppingListItem = () => {
   return (
@@ -13,9 +13,7 @@ const ShoppingListItem = () => {
 export default function ShoppingCartScreen() {
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <Sqlite />
-      </ScrollView>
+      <ScrollView>{/* <Sqlite /> */}</ScrollView>
     </View>
   );
 }

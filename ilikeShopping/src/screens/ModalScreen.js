@@ -7,10 +7,11 @@ import {
   Alert,
   SafeAreaView,
   TextInput,
+  Keyboard,
 } from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
-import AddButton from '../components/add-button';
+import InsertForm from '../components/InsertForm';
 
 var db = openDatabase({name: 'MemoDatabase.db'});
 
@@ -75,20 +76,40 @@ const ModalScreen = ({navigation}) => {
           backgroundColor: '#f8ffd7',
           padding: 10,
         }}>
-        <View style={{flexDirection: 'row', backgroundColor: '#e2e2e2'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: 'transparent',
+            justifyContent: 'space-between',
+            paddingRight: 5,
+          }}>
           <Icon name="close" size={28} onPress={backPage} />
           <TextInput
             placeholder="Enter Memo Title"
             onChangeText={memoContent => setMemoTitle(memoContent)}
-            style={{padding: 10}}
+            style={{
+              padding: 4,
+              backgroundColor: 'transparent',
+              flex: 1,
+              marginHorizontal: 14,
+              borderBottomWidth: 0.5,
+              paddingBottom: 0,
+            }}
           />
           <Text style={{alignItems: 'flex-end'}} customClick={register_memo}>
             완료
           </Text>
         </View>
 
-        <View style={{backgroundColor: '#eeeeee', marginTop: 35}}>
-          <AddButton />
+        <View
+          style={{
+            backgroundColor: '#eeeeee',
+            flex: 1,
+            borderRadius: 10,
+            marginTop: 35,
+            marginBottom: 60,
+          }}>
           <ScrollView keyboardShouldPersistTaps="handled">
             <KeyboardAvoidingView
               behavior="padding"
@@ -100,6 +121,7 @@ const ModalScreen = ({navigation}) => {
               />
             </KeyboardAvoidingView>
           </ScrollView>
+          <InsertForm />
         </View>
       </View>
     </SafeAreaView>
