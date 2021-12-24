@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet, TextInput} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -10,52 +10,60 @@ const InsertFormPositioner = styled.View`
   position: absolute;
 `;
 
-// const Form = styled.Form`
-//   background: #f8f9fa;
-//   padding-left: 32px;
-//   padding-top: 32px;
-//   padding-right: 32px;
-//   padding-bottom: 72px;
+const Form = styled.View`
+  background-color: #f8f9fa;
+`;
 
-//   border-bottom-left-radius: 16px;
-//   border-bottom-right-radius: 16px;
-//   border-top: 1px solid #e9ecef;
-// `;
+const Input = styled.TextInput`
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  width: 100%;
+  font-size: 18px;
+`;
 
-// const Input = styled.Input`
-//   padding: 12px;
-//   border-radius: 4px;
-//   border: 1px solid #dee2e6;
-//   width: 100%;
-//   outline: none;
-//   font-size: 18px;
-//   box-sizing: border-box;
-// `;
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
+    borderRadius: 50,
+    zIndex: 5,
     flexDirection: 'row',
-    // alignItems: 'center',
     justifyContent: 'center',
     marginBottom: -36,
   },
 });
-const InsertForm = () => {
+const InsertForm = props => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
-  const onToggle = {};
+  const onToggle = () => {
+    setOpen(!open);
+    console.log(open);
+  };
   return (
     <>
       {/* {open && (
         <InsertFormPositioner>
           <Form>
             <Input />
+            <TextInput />
           </Form>
         </InsertFormPositioner>
       )} */}
-
-      <TouchableOpacity style={styles.container} onPress={onToggle}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={props.onAddNewInputTextView}>
         <Icon name="add-circle" size={70} style={{color: '#36d8a7'}} />
       </TouchableOpacity>
+      {/* <TouchableOpacity
+        style={styles.container}
+        onPress={props.onAddNewInputTextView}>
+        {open === true ? (
+          <>
+            <Icon name="add-circle" size={70} style={{color: '#ff6b6b'}} />
+          </>
+        ) : (
+          <Icon name="add-circle" size={70} style={{color: '#36d8a7'}} />
+        )}
+      </TouchableOpacity> */}
     </>
   );
 };

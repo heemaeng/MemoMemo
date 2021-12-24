@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
   ScrollView,
-  KeyboardAvoidingView,
   Alert,
   SafeAreaView,
   TextInput,
-  Keyboard,
+  FlatList,
 } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import {openDatabase} from 'react-native-sqlite-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
 import InsertForm from '../components/InsertForm';
@@ -26,6 +26,59 @@ const ModalScreen = ({navigation}) => {
 
   const backPage = () => {
     navigation.navigate('Home');
+  };
+
+  const [flatListItems, setFlatListItems] = useState([]);
+  const [inputs, setInputs] = useState({
+    title: '',
+    content: '',
+  });
+  const {title, content} = inputs;
+  const [items, setItems] = useState([]);
+  const [isSelected, setSelection] = useState(false);
+
+  const nextId = useRef(4);
+  const onAddNewInputTextView = () => {
+    const item = {
+      id: nextId.current,
+      title,
+      content,
+    };
+    setItems(items.concat(item));
+
+    setInputs({
+      title: '',
+      email: '',
+    });
+    nextId.current += 1;
+    console.log('start');
+  };
+  const Item = ({item}) => {
+    return (
+      <View
+        style={{
+          backgroundColor: '#eee222',
+          flexDirection: 'row',
+          marginBottom: 10,
+          borderBottomWidth: 2,
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingHorizontal: 10,
+        }}>
+        <CheckBox value={isSelected} onValueChange={setSelection} />
+        <Text style={{fontSize: 20}}>항목</Text>
+        <Text>수량</Text>
+      </View>
+    );
+  };
+  const ItemList = ({items}) => {
+    return (
+      <View style={{padding: 16}}>
+        {items.map(item => (
+          <Item item={item} key={item.id} />
+        ))}
+      </View>
+    );
   };
   let register_memo = () => {
     if (!memoTitle) {
@@ -111,17 +164,15 @@ const ModalScreen = ({navigation}) => {
             marginBottom: 60,
           }}>
           <ScrollView keyboardShouldPersistTaps="handled">
-            <KeyboardAvoidingView
-              behavior="padding"
-              style={{flex: 1, justifyContent: 'space-between'}}>
-              <TextInput
-                placeholder="Enter Memo Name"
-                onChangeText={memoItemTitle => setMemoItemTitle(memoItemTitle)}
-                style={{padding: 10}}
-              />
-            </KeyboardAvoidingView>
+            {/* <FlatList
+              data={flatListItems}
+              renderItem={renderItem}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+            /> */}
+            <ItemList items={items} />
           </ScrollView>
-          <InsertForm />
+          <InsertForm onAddNewInputTextView={onAddNewInputTextView} />
         </View>
       </View>
     </SafeAreaView>
