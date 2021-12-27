@@ -1,14 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Alert,
-  TextInput,
-} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TextInput} from 'react-native';
 // import AddButton from '../components/add-button';
 import {openDatabase} from 'react-native-sqlite-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -37,24 +28,24 @@ const HomeScreen = ({navigation}) => {
     });
   };
 
-  const createMemoItemTable = () => {
-    db.transaction(txn => {
-      txn.executeSql(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='Memo'",
-        [],
-        (tx, res) => {
-          console.log('item:', res.rows.length);
-          if (res.rows.length === 0) {
-            txn.executeSql('DROP TABLE IF EXISTS MemoItem', []);
-            txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS MemoItem(key VARCHAR(150) NOT NULL UNIQUE, memoCode VARCHAR(150), title VARCAHR(150), content VARCHAR(20))',
-              [],
-            );
-          }
-        },
-      );
-    });
-  };
+  // const createMemoItemTable = () => {
+  //   db.transaction(txn => {
+  //     txn.executeSql(
+  //       "SELECT name FROM sqlite_master WHERE type='table' AND name='Memo'",
+  //       [],
+  //       (tx, res) => {
+  //         console.log('item:', res.rows.length);
+  //         if (res.rows.length === 0) {
+  //           txn.executeSql('DROP TABLE IF EXISTS MemoItem', []);
+  //           txn.executeSql(
+  //             'CREATE TABLE IF NOT EXISTS MemoItem(key VARCHAR(150) NOT NULL UNIQUE, memoCode VARCHAR(150), title VARCAHR(150), content VARCHAR(20))',
+  //             [],
+  //           );
+  //         }
+  //       },
+  //     );
+  //   });
+  // };
   const viewAllMemo = () => {
     db.transaction(txn => {
       txn.executeSql(
@@ -84,9 +75,9 @@ const HomeScreen = ({navigation}) => {
     });
   };
 
-  const onAdd = () => {
-    navigation.navigate('Modal');
-  };
+  // const onAdd = () => {
+  //   navigation.navigate('Modal');
+  // };
 
   const renderItem = ({item, index}) => {
     if (index === 0) {

@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import Navigator from './src/components/tab-bar';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import SafeViewAndroid from './src/modules/SafeViewAndroid';
+import {CheckProvider} from './src/modules/AppContext';
 
 export default function App() {
   setTimeout(() => {
@@ -13,8 +14,10 @@ export default function App() {
   // StatusBar.setTranslucent(true);
   StatusBar.setBarStyle('dark-content');
   return (
-    <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
-      <Navigator />
-    </SafeAreaView>
+    <CheckProvider>
+      <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>
+        <Navigator />
+      </SafeAreaView>
+    </CheckProvider>
   );
 }
