@@ -15,12 +15,19 @@ const HomeScreen = ({navigation}) => {
         "SELECT name FROM sqlite_master WHERE type='table' AND name='Memo'",
         [],
         (tx, res) => {
-          console.log('item:', res.rows.length);
+          // console.log('item:', res.rows.length);
           if (res.rows.length === 0) {
             txn.executeSql('DROP TABLE IF EXISTS Memo', []);
             txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS Memo(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), createDate VARCHAR(10)) PRIMARY KEY("key")',
+              'CREATE TABLE IF NOT EXISTS Memo(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), createDate VARCHAR(10))',
               [],
+            );
+            txn.executeSql(
+              "SELECT name FROM sqlite_master WHERE type='table' AND name='Memo'",
+              [],
+              (tx, res) => {
+                console.log('memoItem:', res.rows.length);
+              },
             );
           }
         },
@@ -28,24 +35,6 @@ const HomeScreen = ({navigation}) => {
     });
   };
 
-  // const createMemoItemTable = () => {
-  //   db.transaction(txn => {
-  //     txn.executeSql(
-  //       "SELECT name FROM sqlite_master WHERE type='table' AND name='Memo'",
-  //       [],
-  //       (tx, res) => {
-  //         console.log('item:', res.rows.length);
-  //         if (res.rows.length === 0) {
-  //           txn.executeSql('DROP TABLE IF EXISTS MemoItem', []);
-  //           txn.executeSql(
-  //             'CREATE TABLE IF NOT EXISTS MemoItem(key VARCHAR(150) NOT NULL UNIQUE, memoCode VARCHAR(150), title VARCAHR(150), content VARCHAR(20))',
-  //             [],
-  //           );
-  //         }
-  //       },
-  //     );
-  //   });
-  // };
   const viewAllMemo = () => {
     db.transaction(txn => {
       txn.executeSql(
@@ -53,7 +42,6 @@ const HomeScreen = ({navigation}) => {
         [],
         (tx, res) => {
           let len = res.rows.length;
-          console.log('rowCount:', len);
 
           if (len > 0) {
             let results = [];
@@ -64,7 +52,6 @@ const HomeScreen = ({navigation}) => {
                 cdate: item.memo_create_date,
               });
             }
-            console.log(results);
             setFlatListItems(results);
           }
         },
@@ -74,10 +61,6 @@ const HomeScreen = ({navigation}) => {
       );
     });
   };
-
-  // const onAdd = () => {
-  //   navigation.navigate('Modal');
-  // };
 
   const renderItem = ({item, index}) => {
     if (index === 0) {
@@ -153,15 +136,12 @@ const styles = StyleSheet.create({
   },
   firstItem: {
     backgroundColor: '#fafafa',
-    // borderRadius: 20,
     paddingHorizontal: 15,
-    // paddingBottom: 8,
     paddingVertical: 8,
     flexDirection: 'row',
   },
   item: {
     backgroundColor: '#fafafa',
-    // borderRadius: 20,
     paddingHorizontal: 15,
     paddingVertical: 8,
     flexDirection: 'row',

@@ -1,25 +1,6 @@
 import React, {useReducer, createContext, useContext, useRef} from 'react';
 
-const initialCheck = [
-  {
-    id: 1,
-    title: '토마토',
-    count: '1개',
-    check: true,
-  },
-  {
-    id: 2,
-    title: '사과',
-    count: '2개',
-    check: true,
-  },
-  {
-    id: 3,
-    title: '포도',
-    count: '2송이',
-    check: false,
-  },
-];
+const initialCheck = [];
 
 const checkReducer = (state, action) => {
   switch (action.type) {
@@ -31,6 +12,9 @@ const checkReducer = (state, action) => {
       );
     case 'REMOVE':
       return state.filter(list => list.id !== action.id);
+    case 'REMOVE_ALL':
+      state.splice(0, state.length);
+      return state;
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -42,7 +26,9 @@ const CheckNextIdContext = createContext();
 
 export const CheckProvider = ({children}) => {
   const [state, dispatch] = useReducer(checkReducer, initialCheck);
-  const nextId = useRef(4);
+  // useRef 사용법
+  // https://velog.io/@mnz/React-useRef-%EA%B0%9C%EB%85%90%EB%B6%80%ED%84%B0-%ED%99%9C%EC%9A%A9%EA%B9%8C%EC%A7%80
+  const nextId = useRef(0);
 
   return (
     <CheckStateContext.Provider value={state}>
@@ -58,7 +44,7 @@ export const CheckProvider = ({children}) => {
 export const useCheckState = () => {
   const context = useContext(CheckStateContext);
   if (!context) {
-    throw new Error('Cannot find CheckProvider');
+    throw new Error('Cannot find CheckProvider1');
   }
   return context;
 };
@@ -66,7 +52,7 @@ export const useCheckState = () => {
 export const useCheckDispatch = () => {
   const context = useContext(CheckDispatchContext);
   if (!context) {
-    throw new Error('Cannot find CheckProvider');
+    throw new Error('Cannot find CheckProvider2');
   }
   return context;
 };
@@ -74,7 +60,7 @@ export const useCheckDispatch = () => {
 export const useCheckNextId = () => {
   const context = useContext(CheckNextIdContext);
   if (!context) {
-    throw new Error('Cannot find CheckProvider');
+    throw new Error('Cannot find CheckProvider3');
   }
   return context;
 };

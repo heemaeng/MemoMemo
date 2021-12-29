@@ -86,9 +86,6 @@
 //     }
 
 //     db.transaction(function (tx) {
-//       const RANDOMMEMOKEY = Math.random().toString(50).substr(2, 11);
-//       let memoKey = RANDOMMEMOKEY;
-//       const RANDOMMEMOITEMKEY = Math.random().toString(50).substr(2, 11);
 //       tx.executeSql(
 //         'INSERT INTO MemoItem (key, memoCode, title, content) VALUES (?,?,?,?)',
 //         [memoItemKey, memoCode, memoItemTitle, memoItemContent],

@@ -1,34 +1,36 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-// import {openDatabase} from 'react-native-sqlite-storage';
 import CheckTemplate from '../components/CheckTemplate';
 import CheckHead from '../components/CheckHead';
 import CheckList from '../components/CheckList';
 import CheckCreate from '../components/CheckCreate';
-// import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
-// var db = openDatabase({name: 'MemoDatabase.db'});
+import {useCheckDispatch} from '../modules/AppContext';
 
 const ModalScreen = ({navigation}) => {
+  const dispatch = useCheckDispatch();
   const SafeAreaViewStyle = StyleSheet.create({
     container: {
       flex: 1,
     },
   });
+
   const backPage = () => {
+    dispatch({type: 'REMOVE_ALL'});
     navigation.navigate('Home');
   };
 
   return (
-    // <KeyboardAwareScrollView>
     <SafeAreaView style={SafeAreaViewStyle.container}>
       <CheckTemplate>
-        <CheckHead backPage={backPage} />
+        <CheckHead
+          backPage={backPage}
+          navigation={navigation}
+          dispatch={dispatch}
+        />
         <CheckList />
         <CheckCreate />
       </CheckTemplate>
     </SafeAreaView>
-    // </KeyboardAwareScrollView>
   );
 };
 export default ModalScreen;
