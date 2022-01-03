@@ -1,6 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList, TextInput} from 'react-native';
-// import AddButton from '../components/add-button';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -22,12 +28,24 @@ const HomeScreen = ({navigation}) => {
               'CREATE TABLE IF NOT EXISTS Memo(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), createDate VARCHAR(10))',
               [],
             );
+          }
+        },
+      );
+    });
+  };
+
+  const createMemoItemTable = () => {
+    db.transaction(txn => {
+      txn.executeSql(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='MemoItem'",
+        [],
+        (tx, res) => {
+          // console.log('item:', res.rows.length);
+          if (res.rows.length === 0) {
+            txn.executeSql('DROP TABLE IF EXISTS Memo', []);
             txn.executeSql(
-              "SELECT name FROM sqlite_master WHERE type='table' AND name='Memo'",
+              'CREATE TABLE IF NOT EXISTS MemoItem(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), content VARCHAR(10))',
               [],
-              (tx, res) => {
-                console.log('memoItem:', res.rows.length);
-              },
             );
           }
         },
@@ -48,6 +66,7 @@ const HomeScreen = ({navigation}) => {
             for (let i = 0; i < len; i++) {
               let item = res.rows.item(i);
               results.push({
+                key: item.key,
                 title: item.title,
                 cdate: item.memo_create_date,
               });
@@ -62,30 +81,41 @@ const HomeScreen = ({navigation}) => {
     });
   };
 
+  const viewContent = key => {
+    console.log(key);
+    navigation.navigate('Content', {paramKey: key});
+  };
+
   const renderItem = ({item, index}) => {
     if (index === 0) {
       return (
-        <View style={styles.firstItem}>
-          <View style={styles.leftItem}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.cdate}>{item.cdate}</Text>
+        // [onPress binding with an argument]
+        // https://stackoverflow.com/questions/43017807/react-native-onpress-binding-with-an-argument
+        <TouchableOpacity onPress={() => viewContent(item.key)}>
+          <View style={styles.firstItem}>
+            <View style={styles.leftItem}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.cdate}>{item.cdate}</Text>
+            </View>
+            <View style={styles.rightItem}>
+              <Icon name="ellipsis-vertical" size={20} />
+            </View>
           </View>
-          <View style={styles.rightItem}>
-            <Icon name="ellipsis-vertical" size={20} />
-          </View>
-        </View>
+        </TouchableOpacity>
       );
     } else {
       return (
-        <View style={styles.item}>
-          <View style={styles.leftItem}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.cdate}>{item.cdate}</Text>
+        <TouchableOpacity onPress={() => viewContent(item.key)}>
+          <View style={styles.item}>
+            <View style={styles.leftItem}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.cdate}>{item.cdate}</Text>
+            </View>
+            <View style={styles.rightItem}>
+              <Icon name="ellipsis-vertical" size={20} />
+            </View>
           </View>
-          <View style={styles.rightItem}>
-            <Icon name="ellipsis-vertical" size={20} />
-          </View>
-        </View>
+        </TouchableOpacity>
       );
     }
   };
@@ -94,6 +124,7 @@ const HomeScreen = ({navigation}) => {
     (async () => {
       createMemoTable();
       viewAllMemo();
+      createMemoItemTable();
     })();
   }, []);
 

@@ -9,6 +9,7 @@ import SettingsScreen from '../../screens/SettingsScreen';
 import ShoppingCartScreen from '../../screens/ShoppingCartScreen';
 import StorageScreen from '../../screens/StorageScreen';
 import ModalScreen from '../../screens/ModalScreen';
+import ContentScreen from '../../screens/ContentScreen';
 
 const opacityTransition = {
   transitionSpec: {
@@ -39,9 +40,6 @@ const LogoTitle = () => {
 
 const FONTCOLOR = {
   headerColor: '#fafafa',
-
-  // headerColor: '#fcfcfc',
-  // headerColor: '#eeee33',
   activeTintColor: '#7da453',
   inactiveTintColor: '#aed581',
 };
@@ -101,27 +99,6 @@ const TabBarStackScreen = ({navigation}) => {
           },
         }}
       />
-      {/* <TabBarStack.Screen
-        name="ShoppingCart"
-        component={ShoppingCartScreen}
-        options={{
-          tabBarLabel: '메모',
-          tabBarIcon: ({color}) => <Icon name="cart" color={color} size={28} />,
-          tabBarActiveTintColor: FONTCOLOR.activeTintColor,
-          tabBarInactiveTintColor: FONTCOLOR.inactiveTintColor,
-          // headerTitle: props => <LogoTitle {...props} />,
-          // headerRight: props => <InsertLogo {...props} />,
-          // headerTitleContainerStyle: {
-          //   marginLeft: 5,
-          // },
-          // headerRightContainerStyle: {
-          //   paddingRight: 5,
-          // },
-          headerStyle: {
-            backgroundColor: FONTCOLOR.headerColor,
-          },
-        }}
-      /> */}
       <TabBarStack.Screen
         name="Storage"
         component={StorageScreen}
@@ -173,6 +150,7 @@ export default function Navigator() {
         screenOptions={{...opacityTransition}}>
         <RootStack.Screen name="TabBar" component={TabBarStackScreen} />
         <RootStack.Screen name="Modal" component={ModalScreen} />
+        <RootStack.Screen name="Content" component={ContentScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
