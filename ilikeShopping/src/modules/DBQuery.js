@@ -15,8 +15,8 @@ export const InsertQuery = (title, item, navigation, dispatch) => {
   }
   db.transaction(tx => {
     tx.executeSql(
-      'INSERT INTO MemoItem (key, memoCode, title, content) VALUES (?,?,?,?)',
-      [item[0].key, code, item[0].title, item[0].count],
+      'INSERT INTO MemoItem (key, memoCode, title, content, checkValue) VALUES (?,?,?,?)',
+      [item[0].key, code, item[0].title, item[0].count, item[0].done],
       (tx, results) => {
         // console.log('Results', results.rowsAffected);
         // if (results.rowsAffected > 0) {

@@ -1,24 +1,31 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 import CheckContentTemplate from '../components/CheckContentTemplate';
 import CheckContentHead from '../components/CheckContentHead';
 import CheckContentList from '../components/CheckContentList';
 import CheckContentBottom from '../components/CheckContentBottom';
-import {openDatabase} from 'react-native-sqlite-storage';
+import {useCheckDispatch} from '../modules/AppContext';
 
-var db = openDatabase({name: 'MemoDatabase.db'});
+const ContentScreen = ({route, navigation}) => {
+  const dispatch = useCheckDispatch();
 
-const ContentScreen = ({route}) => {
+  const SafeAreaViewStyle = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+  });
+
+  const backPage = () => {
+    navigation.navigate('Home');
+  };
+
   return (
-    <SafeAreaView>
-      {/* <CheckContentTemplate>
-        <CheckContentHead />
-        <CheckContentList />
+    <SafeAreaView style={SafeAreaViewStyle.container}>
+      <CheckContentTemplate>
+        <CheckContentHead backPage={backPage} />
+        <CheckContentList param={route.params.paramKey} />
         <CheckContentBottom />
-      </CheckContentTemplate> */}
-      <View>
-        <Text>{route.params.paramKey}</Text>
-      </View>
+      </CheckContentTemplate>
     </SafeAreaView>
   );
 };

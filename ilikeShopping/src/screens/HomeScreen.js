@@ -44,7 +44,7 @@ const HomeScreen = ({navigation}) => {
           if (res.rows.length === 0) {
             txn.executeSql('DROP TABLE IF EXISTS Memo', []);
             txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS MemoItem(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), content VARCHAR(10))',
+              'CREATE TABLE IF NOT EXISTS MemoItem(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), content VARCHAR(10), checkValue INT(1))',
               [],
             );
           }
@@ -67,8 +67,9 @@ const HomeScreen = ({navigation}) => {
               let item = res.rows.item(i);
               results.push({
                 key: item.key,
+                memoCode: item.memoCode,
                 title: item.title,
-                cdate: item.memo_create_date,
+                cdate: item.createDate,
               });
             }
             setFlatListItems(results);
@@ -82,7 +83,6 @@ const HomeScreen = ({navigation}) => {
   };
 
   const viewContent = key => {
-    console.log(key);
     navigation.navigate('Content', {paramKey: key});
   };
 

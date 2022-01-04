@@ -1,23 +1,27 @@
 import React, {useState} from 'react';
 import {View, FlatList} from 'react-native';
+import styled from 'styled-components/native';
+import CheckContentItem from './CheckContentItem';
 import {openDatabase} from 'react-native-sqlite-storage';
 
 var db = openDatabase({name: 'MemoDatabase.db'});
 
-const CheckContentList = () => {
+const CheckContentListBlock = styled.View`
+  flex: 1;
+  background-color: #fafafa;
+  border-radius: 15px;
+  padding: 10px;
+  padding-top: 16px;
+`;
+
+const CheckContentList = param => {
   const [flatListItems, setFlatListItems] = useState([]);
-
-  const renderItem = ({item, index}) => {
-    return (
-      <View>
-        <View></View>
-      </View>
-    );
-  };
-
-  const viewContent = () => {
-    db.transaction(txn => {
-      txn.executeSql('SELECT * FROM MemoItem', [], (txn, res) => {
+  console.log(param.memoCode);
+  db.transaction(txn => {
+    txn.executeSql(
+      'SELECT * FROM MemoItem WHERE memoCode = ?',
+      [param.memoCode],
+      (txn, res) => {
         let len = res.rows.length;
 
         if (len > 0) {
@@ -33,19 +37,30 @@ const CheckContentList = () => {
           }
           setFlatListItems(results);
         }
-      });
-    });
+      },
+    );
+  });
+  const renderItem = ({item}) => {
+    return (
+      <CheckContentItem
+        key={item.key}
+        id={item.id}
+        title={item.title}
+        count={item.content}
+        done={item.check}
+      />
+    );
   };
 
   return (
-    <View>
+    <CheckContentListBlock>
       <FlatList
         data={flatListItems}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       />
-    </View>
+    </CheckContentListBlock>
   );
 };
 

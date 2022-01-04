@@ -145,9 +145,10 @@ const RootStack = createStackNavigator();
 export default function Navigator() {
   return (
     <NavigationContainer>
-      <RootStack.Navigator
+      {/* <RootStack.Navigator
         headerMode="none"
-        screenOptions={{...opacityTransition}}>
+        screenOptions={{...opacityTransition}}> */}
+      <RootStack.Navigator headerMode="none">
         <RootStack.Screen name="TabBar" component={TabBarStackScreen} />
         <RootStack.Screen name="Modal" component={ModalScreen} />
         <RootStack.Screen name="Content" component={ContentScreen} />
