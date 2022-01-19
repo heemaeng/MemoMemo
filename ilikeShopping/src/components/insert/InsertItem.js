@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, {css} from 'styled-components/native';
-import {useCheckDispatch} from '../modules/AppContext';
+import {useCheckDispatch} from '../../hooks/AppContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CheckItemBlock = styled.View`
+const Block = styled.View`
   border-bottom-color: #bbb;
   flex-direction: row;
   align-items: center;
@@ -11,7 +11,7 @@ const CheckItemBlock = styled.View`
   margin-bottom: 10px;
 `;
 
-const TitleText = styled.Text`
+const ProductNameText = styled.Text`
   flex: 5;
   font-size: 14px;
   font-weight: bold;
@@ -19,14 +19,14 @@ const TitleText = styled.Text`
   margin-right: 6px;
 `;
 
-const CountText = styled.Text`
+const QuantityText = styled.Text`
   font-size: 14px;
   font-weight: bold;
   color: #000222;
   margin-right: 10px;
 `;
 
-const Circle = styled.TouchableOpacity`
+const CheckMarkTouchableOpacity = styled.TouchableOpacity`
   width: 24px;
   height: 24px;
   border-radius: 15px;
@@ -34,35 +34,35 @@ const Circle = styled.TouchableOpacity`
   border-width: 2px;
   margin-right: 10px;
   ${props =>
-    props.done &&
+    props.checkValue &&
     css`
       border-color: #bdc192;
       border-width: 3px;
     `}
 `;
 
-const Remove = styled.TouchableOpacity`
+const RemoveTouchableOpacity = styled.TouchableOpacity`
   width: 24px;
   height: 24px;
 `;
 
-const CheckItem = ({id, done, title, count}) => {
+const InsertItem = ({id, productName, amount, checkValue}) => {
   const dispatch = useCheckDispatch();
   const onToggle = () => dispatch({type: 'TOGGLE', id});
   const onRemove = () => dispatch({type: 'REMOVE', id});
 
   return (
-    <CheckItemBlock>
-      <Circle onPress={onToggle}>
-        {done && <Icon name="checkmark" size={20} color="#087f23" />}
-      </Circle>
-      <TitleText done={done}>{title}</TitleText>
-      <CountText done={done}>{count}</CountText>
-      <Remove onPress={onRemove}>
+    <Block>
+      <CheckMarkTouchableOpacity onPress={onToggle}>
+        {checkValue && <Icon name="checkmark" size={20} color="#087f23" />}
+      </CheckMarkTouchableOpacity>
+      <ProductNameText checkValue={checkValue}>{productName}</ProductNameText>
+      <QuantityText checkValue={checkValue}>{amount}</QuantityText>
+      <RemoveTouchableOpacity onPress={onRemove}>
         <Icon name="trash" size={20} color="#dd2c00" />
-      </Remove>
-    </CheckItemBlock>
+      </RemoveTouchableOpacity>
+    </Block>
   );
 };
 
-export default CheckItem;
+export default InsertItem;

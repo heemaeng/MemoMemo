@@ -1,40 +1,20 @@
 import React from 'react';
-import {Image, View, Text, TouchableOpacity} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import styled from 'styled-components/native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../../screens/HomeScreen';
 import SettingsScreen from '../../screens/SettingsScreen';
-import ShoppingCartScreen from '../../screens/ShoppingCartScreen';
 import StorageScreen from '../../screens/StorageScreen';
-import ModalScreen from '../../screens/ModalScreen';
-import ContentScreen from '../../screens/ContentScreen';
 
-const opacityTransition = {
-  transitionSpec: {
-    open: {
-      animation: 'timing',
-    },
-    close: {
-      animation: 'timing',
-      config: {
-        duration: 300,
-      },
-    },
-  },
-  cardStyleInterpolator: ({current}) => ({
-    cardStyle: {
-      opacity: current.progress,
-    },
-  }),
-};
+const LogoTitleImage = styled.Image`
+  width: 50px;
+  height: 50px;
+`;
+
 const LogoTitle = () => {
   return (
-    <Image
-      style={{width: 50, height: 50}}
-      source={require('../../../assets/images/leftLogo.png')}
-    />
+    <LogoTitleImage source={require('../../assets/images/leftLogo.png')} />
   );
 };
 
@@ -43,14 +23,23 @@ const FONTCOLOR = {
   activeTintColor: '#7da453',
   inactiveTintColor: '#aed581',
 };
+
+const HEADERTITLE = {
+  color: '#212121',
+  fontWeight: 'bold',
+  fontSize: 20,
+};
+
 const BottomTabBackgroundView = () => {
   return <View backgroundColor={'#f8ffd7'} flex={1} />;
 };
+
 const TabBarStack = createBottomTabNavigator();
-const TabBarStackScreen = ({navigation}) => {
+
+const TabBar = ({navigation}) => {
   const InsertLogo = () => {
     const onAdd = () => {
-      navigation.navigate('Modal');
+      navigation.navigate('Insert');
     };
 
     return (
@@ -59,6 +48,7 @@ const TabBarStackScreen = ({navigation}) => {
       </TouchableOpacity>
     );
   };
+
   return (
     <TabBarStack.Navigator
       screenOptions={{
@@ -81,9 +71,7 @@ const TabBarStackScreen = ({navigation}) => {
           tabBarActiveTintColor: FONTCOLOR.activeTintColor,
           tabBarInactiveTintColor: FONTCOLOR.inactiveTintColor,
           headerTitle: props => (
-            <Text
-              {...props}
-              style={{color: '#212121', fontWeight: 'bold', fontSize: 20}}>
+            <Text {...props} style={HEADERTITLE}>
               메모
             </Text>
           ),
@@ -140,19 +128,5 @@ const TabBarStackScreen = ({navigation}) => {
     </TabBarStack.Navigator>
   );
 };
-const RootStack = createStackNavigator();
 
-export default function Navigator() {
-  return (
-    <NavigationContainer>
-      {/* <RootStack.Navigator
-        headerMode="none"
-        screenOptions={{...opacityTransition}}> */}
-      <RootStack.Navigator headerMode="none">
-        <RootStack.Screen name="TabBar" component={TabBarStackScreen} />
-        <RootStack.Screen name="Modal" component={ModalScreen} />
-        <RootStack.Screen name="Content" component={ContentScreen} />
-      </RootStack.Navigator>
-    </NavigationContainer>
-  );
-}
+export default TabBar;

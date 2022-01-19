@@ -8,7 +8,7 @@ const checkReducer = (state, action) => {
       return state.concat(action.list);
     case 'TOGGLE':
       return state.map(list =>
-        list.id === action.id ? {...list, done: !list.done} : list,
+        list.id === action.id ? {...list, checkValue: !list.checkValue} : list,
       );
     case 'REMOVE':
       return state.filter(list => list.id !== action.id);

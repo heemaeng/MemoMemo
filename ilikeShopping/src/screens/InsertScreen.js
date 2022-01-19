@@ -1,12 +1,12 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import CheckTemplate from '../components/CheckTemplate';
-import CheckHead from '../components/CheckHead';
-import CheckList from '../components/CheckList';
-import CheckCreate from '../components/CheckCreate';
-import {useCheckDispatch} from '../modules/AppContext';
+import {useCheckDispatch} from '../hooks/AppContext';
+import InsertTemplate from '../components/insert/InsertTemplate';
+import InsertHead from '../components/insert/InsertHead';
+import InsertList from '../components/insert/InsertList';
+import InsertCreate from '../components/insert/InsertCreate';
 
-const ModalScreen = ({navigation}) => {
+const InsertScreen = ({navigation}) => {
   const dispatch = useCheckDispatch();
   const SafeAreaViewStyle = StyleSheet.create({
     container: {
@@ -21,16 +21,16 @@ const ModalScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={SafeAreaViewStyle.container}>
-      <CheckTemplate>
-        <CheckHead
+      <InsertTemplate>
+        <InsertHead
           backPage={backPage}
           navigation={navigation}
           dispatch={dispatch}
         />
-        <CheckList />
-        <CheckCreate />
-      </CheckTemplate>
+        <InsertList />
+        <InsertCreate />
+      </InsertTemplate>
     </SafeAreaView>
   );
 };
-export default ModalScreen;
+export default InsertScreen;

@@ -1,200 +1,52 @@
-import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import {openDatabase} from 'react-native-sqlite-storage';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, {useState, useEffect, useCallback} from 'react';
+import {useColorScheme} from 'react-native';
+import styled from 'styled-components/native';
+import HomeList from '../components/home/HomeList';
+import Search from '../components/home/Search';
+import {getDBConnection} from '../api/dbService/dbConnection';
+import {createMemoTable, getMemoItems} from '../api/dbService/memoDBService';
+import {createMemoItemTable} from '../api/dbService/memoItemDBService';
+// import {deleteMemoItem} from '../api/dbService/memoDBService';
+// import {deleteMemoItemItem} from '../api/dbService/memoItemDBService';
+import {useIsFocused} from '@react-navigation/native';
 
-var db = openDatabase({name: 'MemoDatabase.db'});
+const Block = styled.View`
+  flex: 1;
+  padding: 0;
+  background-color: #fafafa;
+`;
 
 const HomeScreen = ({navigation}) => {
-  const [flatListItems, setFlatListItems] = useState([]);
-
-  const createMemoTable = () => {
-    db.transaction(txn => {
-      txn.executeSql(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='Memo'",
-        [],
-        (tx, res) => {
-          // console.log('item:', res.rows.length);
-          if (res.rows.length === 0) {
-            txn.executeSql('DROP TABLE IF EXISTS Memo', []);
-            txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS Memo(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), createDate VARCHAR(10))',
-              [],
-            );
-          }
-        },
-      );
-    });
-  };
-
-  const createMemoItemTable = () => {
-    db.transaction(txn => {
-      txn.executeSql(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='MemoItem'",
-        [],
-        (tx, res) => {
-          // console.log('item:', res.rows.length);
-          if (res.rows.length === 0) {
-            txn.executeSql('DROP TABLE IF EXISTS Memo', []);
-            txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS MemoItem(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), content VARCHAR(10), checkValue INT(1))',
-              [],
-            );
-          }
-        },
-      );
-    });
-  };
-
-  const viewAllMemo = () => {
-    db.transaction(txn => {
-      txn.executeSql(
-        'SELECT * FROM Memo',
-        [],
-        (tx, res) => {
-          let len = res.rows.length;
-
-          if (len > 0) {
-            let results = [];
-            for (let i = 0; i < len; i++) {
-              let item = res.rows.item(i);
-              results.push({
-                key: item.key,
-                memoCode: item.memoCode,
-                title: item.title,
-                cdate: item.createDate,
-              });
-            }
-            setFlatListItems(results);
-          }
-        },
-        error => {
-          console.log('error on getting Memo ' + error.message);
-        },
-      );
-    });
-  };
-
-  const viewContent = key => {
-    navigation.navigate('Content', {paramKey: key});
-  };
-
-  const renderItem = ({item, index}) => {
-    if (index === 0) {
-      return (
-        // [onPress binding with an argument]
-        // https://stackoverflow.com/questions/43017807/react-native-onpress-binding-with-an-argument
-        <TouchableOpacity onPress={() => viewContent(item.key)}>
-          <View style={styles.firstItem}>
-            <View style={styles.leftItem}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.cdate}>{item.cdate}</Text>
-            </View>
-            <View style={styles.rightItem}>
-              <Icon name="ellipsis-vertical" size={20} />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <TouchableOpacity onPress={() => viewContent(item.key)}>
-          <View style={styles.item}>
-            <View style={styles.leftItem}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.cdate}>{item.cdate}</Text>
-            </View>
-            <View style={styles.rightItem}>
-              <Icon name="ellipsis-vertical" size={20} />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
+  const isDarkMode = useColorScheme() === 'dark';
+  const isFocused = useIsFocused();
+  const [memo, setMemo] = useState([]);
+  const loadDataCallback = useCallback(async () => {
+    try {
+      const initMemo = [];
+      const db = await getDBConnection();
+      await createMemoTable(db);
+      await createMemoItemTable(db);
+      const storedMemoItems = await getMemoItems(db);
+      if (storedMemoItems.length) {
+        setMemo(storedMemoItems);
+      } else {
+        setMemo(initMemo);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  };
-
-  useEffect(() => {
-    (async () => {
-      createMemoTable();
-      viewAllMemo();
-      createMemoItemTable();
-    })();
   }, []);
 
+  useEffect(() => {
+    loadDataCallback();
+  }, [loadDataCallback, isFocused]);
+
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          backgroundColor: '#e2e2e2',
-          padding: 15,
-        }}>
-        <View
-          style={{
-            backgroundColor: '#9e9e9e',
-            paddingHorizontal: 5,
-            paddingVertical: 0,
-            borderRadius: 10,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Icon name="search" size={20} />
-          <TextInput style={{width: '90%', padding: 0}} placeholder="검색" />
-        </View>
-      </View>
-      <FlatList
-        data={flatListItems}
-        renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-      />
-      {/* <AddButton onAdd={onAdd} /> */}
-    </View>
+    <Block>
+      <Search />
+      <HomeList memo={memo} navigation={navigation} />
+    </Block>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 0,
-    backgroundColor: '#fafafa',
-  },
-  firstItem: {
-    backgroundColor: '#fafafa',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    flexDirection: 'row',
-  },
-  item: {
-    backgroundColor: '#fafafa',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    flexDirection: 'row',
-    borderTopWidth: 0.5,
-    borderColor: '#9e9e9e',
-  },
-  leftItem: {
-    flex: 1,
-    backgroundColor: '#fafafa',
-  },
-  rightItem: {
-    backgroundColor: '#fafafa',
-    alignItems: 'flex-end',
-  },
-  title: {
-    color: '#212121',
-    fontSize: 16,
-  },
-  cdate: {
-    color: '#9e9e9e',
-    fontSize: 14,
-  },
-});
 
 export default HomeScreen;

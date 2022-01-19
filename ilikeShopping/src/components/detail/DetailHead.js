@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
-import {Text} from 'react-native';
-import {useCheckState} from '../modules/AppContext';
+import React from 'react';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CheckContentBlock = styled.View`
+const Block = styled.View`
   flex-direction: row;
   align-items: center;
   background-color: transparent;
@@ -13,7 +11,7 @@ const CheckContentBlock = styled.View`
   padding-bottom: 6px;
 `;
 
-const ViewTitleBlock = styled.View`
+const TitleBlock = styled.View`
   padding: 0;
   background-color: #fff;
   flex: 1;
@@ -25,25 +23,27 @@ const ViewTitleBlock = styled.View`
   color: #000222;
 `;
 
-const UpdateBlock = styled.TouchableOpacity`
+const TitleText = styled.Text``;
+
+const CreateDateText = styled.Text``;
+
+const OptionMenuTouchableOpacity = styled.TouchableOpacity`
   align-items: flex-end;
 `;
 
-const CheckContentHead = ({backPage, navigation, dispatch}) => {
-  const checks = useCheckState();
-
+const DetailHead = ({backPage, ...props}) => {
   return (
-    <CheckContentBlock>
+    <Block>
       <Icon name="arrow-back-outline" size={28} onPress={backPage} />
-      <ViewTitleBlock>
-        <Text>Title</Text>
-        <Text>CreateDate</Text>
-      </ViewTitleBlock>
-      <UpdateBlock>
+      <TitleBlock>
+        <TitleText>{props.title}</TitleText>
+        <CreateDateText>{props.createDate}</CreateDateText>
+      </TitleBlock>
+      <OptionMenuTouchableOpacity>
         <Icon name="ellipsis-horizontal-circle-outline" size={28} />
-      </UpdateBlock>
-    </CheckContentBlock>
+      </OptionMenuTouchableOpacity>
+    </Block>
   );
 };
 
-export default CheckContentHead;
+export default DetailHead;

@@ -1,10 +1,10 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
 import styled from 'styled-components/native';
-import {useCheckState} from '../modules/AppContext';
-import CheckItem from './CheckItem';
+import {useCheckState} from '../../hooks/AppContext';
+import CheckItem from './InsertItem';
 
-const CheckListBlock = styled.View`
+const Block = styled.View`
   flex: 1;
   background-color: #fafafa;
   border-radius: 15px;
@@ -12,24 +12,24 @@ const CheckListBlock = styled.View`
   padding-top: 16px;
 `;
 
-const CheckList = () => {
+const InsertList = () => {
   const checks = useCheckState();
   return (
-    <CheckListBlock>
+    <Block>
       <ScrollView>
         {checks &&
           checks.map(check => (
             <CheckItem
-              key={check.id}
               id={check.id}
-              title={check.title}
-              count={check.count}
-              done={check.done}
+              key={check.key}
+              productName={check.productName}
+              amount={check.amount}
+              checkValue={check.checkValue}
             />
           ))}
       </ScrollView>
-    </CheckListBlock>
+    </Block>
   );
 };
 
-export default CheckList;
+export default InsertList;

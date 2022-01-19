@@ -1,32 +1,9 @@
 import React, {useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useCheckDispatch, useCheckNextId} from '../modules/AppContext';
+import {useCheckDispatch, useCheckNextId} from '../../hooks/AppContext';
 
-const CircleButton = styled.TouchableOpacity`
-  background-color: #38d9a9;
-  width: 54px;
-  height: 54px;
-  border-radius: 40px;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  bottom: 8px;
-  align-self: center;
-  ${props =>
-    props.open &&
-    css`
-      background-color: #ff6b6b;
-    `}
-`;
-
-const InsideText = styled.Text`
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-const InsertFormPositioner = styled.View`
+const Block = styled.View`
   bottom: 0;
   left: 0;
   right: 0;
@@ -44,7 +21,7 @@ const InsertForm = styled.View`
   border-bottom-right-radius: 16px;
 `;
 
-const Input = styled.TextInput`
+const ProductNameTextInput = styled.TextInput`
   flex: 3;
   background-color: #fafafa;
   padding-top: 0px;
@@ -57,7 +34,7 @@ const Input = styled.TextInput`
   font-weight: bold;
 `;
 
-const InputCount = styled.TextInput`
+const QuantityTextInput = styled.TextInput`
   flex: 2;
   background-color: #fafafa;
   padding-top: 0px;
@@ -70,7 +47,7 @@ const InputCount = styled.TextInput`
   font-weight: bold;
 `;
 
-const FormButton = styled.TouchableOpacity`
+const ConfirmTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
   border-radius: 18px;
   background-color: #087f23;
@@ -79,10 +56,33 @@ const FormButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-const ListCreate = () => {
+const AddTouchableOpacity = styled.TouchableOpacity`
+  background-color: #38d9a9;
+  width: 54px;
+  height: 54px;
+  border-radius: 40px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  bottom: 8px;
+  align-self: center;
+  ${props =>
+    props.open &&
+    css`
+      background-color: #ff6b6b;
+    `}
+`;
+
+const AddText = styled.Text`
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+const InsertCreate = () => {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState('');
-  const [count, setCount] = useState('');
+  const [productName, setProductName] = useState('');
+  const [amount, setAmount] = useState('');
 
   const dispatch = useCheckDispatch();
   const nextId = useCheckNextId();
@@ -91,46 +91,46 @@ const ListCreate = () => {
   const onSubmit = () => {
     dispatch({
       type: 'CREATE',
-      // AppContext.js: CREATE action.list
       list: {
-        key: Math.random().toString(30).substr(2, 11),
         id: nextId.current,
-        title: title,
-        count: count,
-        done: false,
+        key: Math.random().toString(30).substr(2, 11),
+        productName: productName,
+        amount: amount,
+        checkValue: false,
       },
     });
-    setTitle('');
-    setCount('');
+    setProductName('');
+    setAmount('');
     setOpen(false);
     nextId.current += 1;
   };
+
   return (
     <>
       {open && (
-        <InsertFormPositioner>
+        <Block>
           <InsertForm>
-            <Input
+            <ProductNameTextInput
               placeholder="물품"
-              onChangeText={text => setTitle(text)}
-              value={title}
+              onChangeText={text => setProductName(text)}
+              value={productName}
             />
-            <InputCount
+            <QuantityTextInput
               placeholder="수량"
-              onChangeText={text => setCount(text)}
-              value={count}
+              onChangeText={text => setAmount(text)}
+              value={amount}
             />
-            <FormButton onPress={onSubmit}>
+            <ConfirmTouchableOpacity onPress={onSubmit}>
               <Icon name="arrow-up" size={30} color="#fff" />
-            </FormButton>
+            </ConfirmTouchableOpacity>
           </InsertForm>
-        </InsertFormPositioner>
+        </Block>
       )}
-      <CircleButton onPress={onToggle} open={open}>
-        <InsideText>+</InsideText>
-      </CircleButton>
+      <AddTouchableOpacity onPress={onToggle} open={open}>
+        <AddText>+</AddText>
+      </AddTouchableOpacity>
     </>
   );
 };
 
-export default ListCreate;
+export default InsertCreate;
