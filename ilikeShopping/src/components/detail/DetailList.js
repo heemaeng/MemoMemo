@@ -15,8 +15,7 @@ const DetailList = props => {
   const renderItem = ({item}) => {
     return (
       <DetailItem
-        id={item.key}
-        key={item.key}
+        itemKey={item.key}
         productName={item.productName}
         amount={item.amount}
         checkValue={item.checkValue}

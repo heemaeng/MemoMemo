@@ -49,8 +49,9 @@ const InsertHead = ({backPage, navigation, dispatch}) => {
     }
     try {
       const db = await getDBConnection();
-      await saveMemoItemItems(db, checks);
-      await saveMemoItems(db, title);
+      const memoCode = Math.random().toString(20).substr(2, 11);
+      await saveMemoItemItems(db, checks, memoCode);
+      await saveMemoItems(db, title, memoCode);
       return Alert.alert('성공', '작성완료', [
         {
           text: '확인',

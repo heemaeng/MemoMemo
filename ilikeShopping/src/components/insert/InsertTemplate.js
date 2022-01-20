@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 const Block = styled.View`
   flex: 1;
-  background-color: #f8ffd7;
+  background-color: #ffffff;
   padding: 16px;
   padding-bottom: 32px;
 `;

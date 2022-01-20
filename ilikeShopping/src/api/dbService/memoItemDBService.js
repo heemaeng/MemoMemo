@@ -51,23 +51,28 @@ export const getMemoItemCheck = async (db, memoCode) => {
   }
 };
 
-export const saveMemoItemItems = async (db, memoItemItems) => {
-  console.log(memoItemItems);
+export const saveMemoItemItems = async (db, memoItemItems, memoCode) => {
   const insertQuery =
     `INSERT OR REPLACE INTO ${tablename}(key, memoCode, productName, amount, checkValue) values` +
     memoItemItems
       .map(
         i =>
-          `('${i.key}', '${i.memoCode}', '${i.productName}', '${
+          `('${i.key}', '${memoCode}', '${i.productName}', '${
             i.amount
           }', ${Number(i.checkValue)})`,
       )
       .join(',');
-
   return db.executeSql(insertQuery);
 };
 
 export const deleteMemoItemItem = async (db, key) => {
   const deleteQuery = `DELETE FROM ${tablename} WHERE key = ${key}`;
   await db.executeSql(deleteQuery);
+};
+
+export const updateMemoItemItem = async (db, key, checkValue) => {
+  const updateQuery = `UPDATE ${tablename} SET checkValue = ${Number(
+    checkValue,
+  )} WHERE key = '${key}'`;
+  await db.executeSql(updateQuery);
 };

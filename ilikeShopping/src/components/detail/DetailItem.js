@@ -43,7 +43,10 @@ const AmountText = styled.Text`
 const DetailItem = props => {
   return (
     <Block>
-      <CheckmarkTouchableOpacity onPress={props.onToggle}>
+      <CheckmarkTouchableOpacity
+        onPress={() =>
+          props.onToggle(props.itemKey, Boolean(props.checkValue))
+        }>
         {Boolean(props.checkValue) && (
           <Icon name="checkmark" size={20} color="#087f23" />
         )}
@@ -51,7 +54,9 @@ const DetailItem = props => {
       <ProductNameText done={Boolean(props.checkValue)}>
         {props.productName}
       </ProductNameText>
-      <AmountText done={Boolean(props.checkValue)}>{props.amount}</AmountText>
+      <AmountText checkValue={Boolean(props.checkValue)}>
+        {props.amount}
+      </AmountText>
     </Block>
   );
 };

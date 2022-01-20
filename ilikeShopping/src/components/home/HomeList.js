@@ -5,7 +5,7 @@ import HomeItem from './HomeItem';
 
 const Block = styled.View`
   flex: 1;
-  background-color: #fafafa;
+  background-color: #ffffff;
   border-radius: 15px;
   padding: 10px;
   padding-top: 16px;

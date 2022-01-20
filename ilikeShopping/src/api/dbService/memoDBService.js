@@ -30,16 +30,14 @@ export const getMemoItems = async db => {
   }
 };
 
-export const saveMemoItems = async (db, title) => {
+export const saveMemoItems = async (db, title, memoCode) => {
   const key = Math.random().toString(30).substr(2, 11);
-  const memoCode = Math.random().toString(20).substr(2, 11);
   const dt = new Date();
   const createDate =
     dt.getFullYear() + '. ' + (dt.getMonth() + 1) + '. ' + dt.getDate() + '.';
   const insertQuery =
     `INSERT OR REPLACE INTO ${tablename}(key, memoCode, title, createDate) values` +
     `('${key}', '${memoCode}', '${title}', '${createDate}')`;
-
   return db.executeSql(insertQuery);
 };
 

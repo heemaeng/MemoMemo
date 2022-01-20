@@ -5,28 +5,38 @@ import HomeList from '../components/home/HomeList';
 import Search from '../components/home/Search';
 import {getDBConnection} from '../api/dbService/dbConnection';
 import {createMemoTable, getMemoItems} from '../api/dbService/memoDBService';
-import {createMemoItemTable} from '../api/dbService/memoItemDBService';
-// import {deleteMemoItem} from '../api/dbService/memoDBService';
-// import {deleteMemoItemItem} from '../api/dbService/memoItemDBService';
+import {
+  createMemoItemTable,
+  getMemoItemItems,
+  getMemoItemCheck,
+} from '../api/dbService/memoItemDBService';
+// import {deleteMemoTable} from '../api/dbService/memoDBService';
+// import {deleteMemoItemTable} from '../api/dbService/memoItemDBService';
 import {useIsFocused} from '@react-navigation/native';
 
 const Block = styled.View`
   flex: 1;
   padding: 0;
-  background-color: #fafafa;
+  background-color: #ffffff;
 `;
 
 const HomeScreen = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const isFocused = useIsFocused();
   const [memo, setMemo] = useState([]);
+  const [memoItemCount, setMemoItemCount] = useState(0);
+  const [memoItemCheckCount, setMemoItemCheckCount] = useState(0);
   const loadDataCallback = useCallback(async () => {
+    // const db = await getDBConnection();
+    // await deleteMemoTable(db);
+    // await deleteMemoItemTable(db);
     try {
       const initMemo = [];
       const db = await getDBConnection();
       await createMemoTable(db);
       await createMemoItemTable(db);
       const storedMemoItems = await getMemoItems(db);
+
       if (storedMemoItems.length) {
         setMemo(storedMemoItems);
       } else {

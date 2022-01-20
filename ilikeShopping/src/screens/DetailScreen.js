@@ -11,8 +11,8 @@ import {
   getMemoItemItems,
   saveMemoItemItems,
   getMemoItemCheck,
+  updateMemoItemItem,
 } from '../api/dbService/memoItemDBService';
-
 const ScreenSafeAreaView = styled.SafeAreaView`
   flex: 1;
 `;
@@ -27,7 +27,7 @@ const DetailScreen = ({route, navigation}) => {
     try {
       const initMemoItem = [];
       const db = await getDBConnection();
-      await createMemoItemTable(db);
+      // await createMemoItemTable(db);
       const storedMemoItemItems = await getMemoItemItems(
         db,
         route.params.memoCode,
@@ -41,7 +41,6 @@ const DetailScreen = ({route, navigation}) => {
         setMemoItemCheckCount(storedMemoItemCheck.length);
         setMemoItem(storedMemoItemItems);
       } else {
-        await saveMemoItemItems(db, initMemoItem);
         setMemoItem(initMemoItem);
       }
     } catch (error) {
@@ -53,8 +52,28 @@ const DetailScreen = ({route, navigation}) => {
     loadDataCallback();
   }, [loadDataCallback]);
 
-  const onToggle = () => {
-    console.log('onToggle');
+  const onToggle = async (ItemKey, ItemCheckValue) => {
+    try {
+      ItemCheckValue = !ItemCheckValue;
+      const db = await getDBConnection();
+      await updateMemoItemItem(db, ItemKey, ItemCheckValue);
+      await createMemoItemTable(db);
+      const storedMemoItemItems = await getMemoItemItems(
+        db,
+        route.params.memoCode,
+      );
+      if (storedMemoItemItems.length) {
+        const storedMemoItemCheck = await getMemoItemCheck(
+          db,
+          route.params.memoCode,
+        );
+        setMemoItemCount(storedMemoItemItems.length);
+        setMemoItemCheckCount(storedMemoItemCheck.length);
+        setMemoItem(storedMemoItemItems);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
