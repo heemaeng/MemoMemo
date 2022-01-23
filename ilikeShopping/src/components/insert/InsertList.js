@@ -8,8 +8,7 @@ const Block = styled.View`
   flex: 1;
   background-color: #fafafa;
   border-radius: 15px;
-  padding: 10px;
-  padding-top: 16px;
+  padding: 18px;
 `;
 
 const InsertList = () => {

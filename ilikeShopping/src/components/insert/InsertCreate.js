@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useCheckDispatch, useCheckNextId} from '../../hooks/AppContext';
+import ColorPicker from '../colorPicker/ColorPicker';
 
 const Block = styled.View`
   bottom: 0;
   left: 0;
   right: 0;
   position: absolute;
-  padding: 16px;
+  padding: 12px;
   padding-bottom: 32px;
 `;
 
@@ -67,9 +68,28 @@ const AddTouchableOpacity = styled.TouchableOpacity`
   bottom: 8px;
   align-self: center;
   ${props =>
-    props.open &&
+    props.memoInputOpen &&
     css`
+      transform: rotate(45deg);
       background-color: #ff6b6b;
+    `}
+`;
+
+const ColorTouchableOpacity = styled.TouchableOpacity`
+  border: #e2e2e2;
+  width: 32px;
+  height: 32px;
+  border-radius: 15px;
+  position: absolute;
+  right: 102px;
+  bottom: 16px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  ${props =>
+    props.backgroundColor &&
+    css`
+      background-color: ${props.backgroundColor};
     `}
 `;
 
@@ -79,15 +99,20 @@ const AddText = styled.Text`
   font-weight: bold;
 `;
 
-const InsertCreate = () => {
-  const [open, setOpen] = useState(false);
+const InsertCreate = props => {
+  const [memoInputOpen, setMemoInputOpen] = useState(false);
+  const [colorSelectOpen, setColorSelectOpen] = useState(false);
   const [productName, setProductName] = useState('');
   const [amount, setAmount] = useState('');
 
   const dispatch = useCheckDispatch();
   const nextId = useCheckNextId();
 
-  const onToggle = () => setOpen(!open);
+  const onToggle = () => {
+    setProductName('');
+    setAmount('');
+    setMemoInputOpen(!memoInputOpen);
+  };
   const onSubmit = () => {
     dispatch({
       type: 'CREATE',
@@ -101,13 +126,17 @@ const InsertCreate = () => {
     });
     setProductName('');
     setAmount('');
-    setOpen(false);
+    setMemoInputOpen(false);
     nextId.current += 1;
+  };
+  const onColorPickToggle = () => {
+    setMemoInputOpen(false);
+    setColorSelectOpen(!colorSelectOpen);
   };
 
   return (
     <>
-      {open && (
+      {memoInputOpen && (
         <Block>
           <InsertForm>
             <ProductNameTextInput
@@ -126,9 +155,15 @@ const InsertCreate = () => {
           </InsertForm>
         </Block>
       )}
-      <AddTouchableOpacity onPress={onToggle} open={open}>
+      {colorSelectOpen && <ColorPicker currentColor={props.backgroundColor} />}
+      <AddTouchableOpacity onPress={onToggle} open={memoInputOpen}>
         <AddText>+</AddText>
       </AddTouchableOpacity>
+      <ColorTouchableOpacity
+        onPress={onColorPickToggle}
+        backgroundColor={props.backgroundColor}>
+        <Icon name="color-palette-outline" size={20} color="#ffffff" />
+      </ColorTouchableOpacity>
     </>
   );
 };

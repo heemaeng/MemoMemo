@@ -1,15 +1,20 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 
 const Block = styled.View`
   flex: 1;
-  background-color: #ffffff;
-  padding: 16px;
+  /* background-color: tomato; */
+  padding: 12px;
   padding-bottom: 32px;
+  ${props =>
+    props.backgroundColor &&
+    css`
+      background-color: ${props.backgroundColor};
+    `}
 `;
 
-const InsertTemplate = ({children}) => {
-  return <Block>{children}</Block>;
+const InsertTemplate = ({children, ...props}) => {
+  return <Block backgroundColor={props.backgroundColor}>{children}</Block>;
 };
 
 export default InsertTemplate;

@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
+import {Text, View} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getDBConnection} from '../../api/dbService/dbConnection';
@@ -14,9 +15,17 @@ const Block = styled.View`
   background-color: tomato;
   padding: 20px;
   flex-direction: row;
-  /* border-top-width: 0.5px; */
   border-color: #9e9e9e;
   border-radius: 10px;
+`;
+const CautionMark = styled.View`
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: red;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
 `;
 const LeftBlock = styled.View`
   flex: 1;
@@ -70,6 +79,7 @@ const HomeItem = props => {
         })
       }>
       <Block>
+        {memoItemCheckCount !== memoItemCount && <CautionMark />}
         <LeftBlock>
           <TitleText>{props.title}</TitleText>
           <CreateDateText>{props.createDate}</CreateDateText>
@@ -78,8 +88,6 @@ const HomeItem = props => {
           <CountText>
             {memoItemCheckCount} /{memoItemCount}
           </CountText>
-
-          {/* <Icon name="ellipsis-vertical" size={20} /> */}
         </RightBlock>
       </Block>
     </ItemTouchableOpacity>

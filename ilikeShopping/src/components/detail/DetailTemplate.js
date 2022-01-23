@@ -3,7 +3,8 @@ import styled from 'styled-components/native';
 
 const Block = styled.View`
   flex: 1;
-  padding: 16px;
+  padding: 12px;
+  background-color: tomato;
 `;
 
 const DetailTemplate = ({children}) => {

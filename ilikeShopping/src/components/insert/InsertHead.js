@@ -12,21 +12,29 @@ const Block = styled.View`
   align-items: center;
   background-color: transparent;
   justify-content: space-between;
-  padding-right: 5px;
-  padding-bottom: 6px;
+  margin-bottom: 18px;
+`;
+
+const FirstBlock = styled.View`
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: transparent;
+  justify-content: space-between;
+`;
+
+const BackPageTouchableOpacity = styled.TouchableOpacity`
+  align-items: flex-start;
+  margin-right: 12px;
 `;
 
 const TitleTextInput = styled.TextInput`
   padding: 0;
   background-color: #fff;
   flex: 1;
-  margin-left: 7px;
-  margin-right: 7px;
-  padding-bottom: 0px;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 700;
   color: #000222;
-  border-radius: 16px;
+  border-radius: 6px;
   padding-right: 12px;
   padding-left: 12px;
   border-width: 1px;
@@ -35,10 +43,15 @@ const TitleTextInput = styled.TextInput`
 
 const ConfirmTouchableOpacity = styled.TouchableOpacity`
   font-weight: bold;
-  align-items: flex-end;
+  align-self: center;
+  margin-left: 12px;
 `;
 
-const ConfirmText = styled.Text``;
+const ConfirmText = styled.Text`
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+`;
 
 const InsertHead = ({backPage, navigation, dispatch}) => {
   const checks = useCheckState();
@@ -68,15 +81,19 @@ const InsertHead = ({backPage, navigation, dispatch}) => {
 
   return (
     <Block>
-      <Icon name="close" size={28} onPress={backPage} />
-      <TitleTextInput
-        placeholder="제목을 입력"
-        onChangeText={text => setTitle(text)}
-        value={title}
-      />
-      <ConfirmTouchableOpacity onPress={onSubmit}>
-        <ConfirmText>완료</ConfirmText>
-      </ConfirmTouchableOpacity>
+      <FirstBlock>
+        <BackPageTouchableOpacity onPress={backPage}>
+          <Icon name="close" size={28} color={'#ffffff'} />
+        </BackPageTouchableOpacity>
+        <TitleTextInput
+          placeholder="제목을 입력"
+          onChangeText={text => setTitle(text)}
+          value={title}
+        />
+        <ConfirmTouchableOpacity onPress={onSubmit}>
+          <ConfirmText>완료</ConfirmText>
+        </ConfirmTouchableOpacity>
+      </FirstBlock>
     </Block>
   );
 };

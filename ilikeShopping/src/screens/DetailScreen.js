@@ -22,6 +22,7 @@ const DetailScreen = ({route, navigation}) => {
   const [memoItem, setMemoItem] = useState([]);
   const [memoItemCount, setMemoItemCount] = useState(0);
   const [memoItemCheckCount, setMemoItemCheckCount] = useState(0);
+  const [backgroundColor, setBackgroundColor] = useState('tomato');
 
   const loadDataCallback = useCallback(async () => {
     try {
@@ -76,6 +77,10 @@ const DetailScreen = ({route, navigation}) => {
     }
   };
 
+  const onColorPick = () => {
+    console.log('onColorPick');
+  };
+
   return (
     <ScreenSafeAreaView>
       <DetailTemplate>
@@ -84,7 +89,12 @@ const DetailScreen = ({route, navigation}) => {
           title={route.params.title}
           createDate={route.params.createDate}
         />
-        <DetailList memoItem={memoItem} onToggle={onToggle} />
+        <DetailList
+          memoItem={memoItem}
+          memoItemCount={memoItemCount}
+          memoItemCheckCount={memoItemCheckCount}
+          onToggle={onToggle}
+        />
         <DetailBottom
           memoItemCount={memoItemCount}
           memoItemCheckCount={memoItemCheckCount}

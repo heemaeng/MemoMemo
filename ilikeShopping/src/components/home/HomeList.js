@@ -8,7 +8,7 @@ const Block = styled.View`
   background-color: #ffffff;
   border-radius: 15px;
   padding: 10px;
-  padding-top: 16px;
+  padding-top: 6px;
 `;
 
 const HomeList = props => {
