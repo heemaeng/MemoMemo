@@ -1,14 +1,18 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 
 const Block = styled.View`
   flex: 1;
   padding: 12px;
-  background-color: tomato;
+  ${props =>
+    props.backgroundColor &&
+    css`
+      background-color: ${props.backgroundColor};
+    `}
 `;
 
-const DetailTemplate = ({children}) => {
-  return <Block>{children}</Block>;
+const DetailTemplate = ({children, ...props}) => {
+  return <Block backgroundColor={props.backgroundColor}>{children}</Block>;
 };
 
 export default DetailTemplate;

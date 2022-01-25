@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Block = styled.View`
@@ -23,14 +23,22 @@ const TitleBlock = styled.View`
 `;
 
 const TitleText = styled.Text`
-  color: #ffffff;
   font-weight: 700;
   font-size: 20px;
+  ${props =>
+    props.fontColor &&
+    css`
+      color: ${props.fontColor};
+    `}
 `;
 
 const CreateDateText = styled.Text`
-  color: #ffffff;
   font-size: 14px;
+  ${props =>
+    props.fontColor &&
+    css`
+      color: ${props.fontColor};
+    `}
 `;
 
 const OptionMenuTouchableOpacity = styled.TouchableOpacity`
@@ -42,15 +50,16 @@ const DetailHead = ({backPage, ...props}) => {
     <Block>
       <FirstBlock>
         <BackPageTouchableOpacity onPress={backPage}>
-          <Icon name="arrow-back-outline" size={26} color={'#ffffff'} />
+          <Icon name="arrow-back-outline" size={26} color={props.fontColor} />
         </BackPageTouchableOpacity>
-
         <TitleBlock>
-          <TitleText>{props.title}</TitleText>
-          <CreateDateText>{props.createDate}</CreateDateText>
+          <TitleText fontColor={props.fontColor}>{props.title}</TitleText>
+          <CreateDateText fontColor={props.fontColor}>
+            {props.createDate}
+          </CreateDateText>
         </TitleBlock>
         <OptionMenuTouchableOpacity>
-          <Icon name="ellipsis-vertical" size={20} color={'#ffffff'} />
+          <Icon name="ellipsis-vertical" size={20} color={props.fontColor} />
         </OptionMenuTouchableOpacity>
       </FirstBlock>
     </Block>

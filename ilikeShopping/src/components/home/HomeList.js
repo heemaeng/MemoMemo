@@ -18,6 +18,8 @@ const HomeList = props => {
         id={item.key}
         key={item.key}
         memoCode={item.memoCode}
+        backgroundColor={item.backgroundColor}
+        fontColor={item.fontColor}
         title={item.title}
         createDate={item.createDate}
         navigation={props.navigation}

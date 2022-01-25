@@ -10,8 +10,8 @@ import {
   getMemoItemItems,
   getMemoItemCheck,
 } from '../api/dbService/memoItemDBService';
-// import {deleteMemoTable} from '../api/dbService/memoDBService';
-// import {deleteMemoItemTable} from '../api/dbService/memoItemDBService';
+import {deleteMemoTable} from '../api/dbService/memoDBService';
+import {deleteMemoItemTable} from '../api/dbService/memoItemDBService';
 import {useIsFocused} from '@react-navigation/native';
 
 const Block = styled.View`
@@ -24,8 +24,6 @@ const HomeScreen = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const isFocused = useIsFocused();
   const [memo, setMemo] = useState([]);
-  const [memoItemCount, setMemoItemCount] = useState(0);
-  const [memoItemCheckCount, setMemoItemCheckCount] = useState(0);
   const loadDataCallback = useCallback(async () => {
     // const db = await getDBConnection();
     // await deleteMemoTable(db);
@@ -36,7 +34,6 @@ const HomeScreen = ({navigation}) => {
       await createMemoTable(db);
       await createMemoItemTable(db);
       const storedMemoItems = await getMemoItems(db);
-
       if (storedMemoItems.length) {
         setMemo(storedMemoItems);
       } else {

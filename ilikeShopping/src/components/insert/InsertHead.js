@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useCheckState} from '../../hooks/AppContext';
 import {Alert} from 'react-native';
@@ -48,12 +48,16 @@ const ConfirmTouchableOpacity = styled.TouchableOpacity`
 `;
 
 const ConfirmText = styled.Text`
-  color: #ffffff;
   font-weight: 700;
   font-size: 14px;
+  ${props =>
+    props.fontColor &&
+    css`
+      color: ${props.fontColor};
+    `}
 `;
 
-const InsertHead = ({backPage, navigation, dispatch}) => {
+const InsertHead = props => {
   const checks = useCheckState();
   const [title, setTitle] = useState('');
   const onSubmit = async () => {
@@ -64,13 +68,19 @@ const InsertHead = ({backPage, navigation, dispatch}) => {
       const db = await getDBConnection();
       const memoCode = Math.random().toString(20).substr(2, 11);
       await saveMemoItemItems(db, checks, memoCode);
-      await saveMemoItems(db, title, memoCode);
+      await saveMemoItems(
+        db,
+        props.backgroundColor,
+        props.fontColor,
+        title,
+        memoCode,
+      );
       return Alert.alert('성공', '작성완료', [
         {
           text: '확인',
           onPress: () => {
-            dispatch({type: 'REMOVE_ALL'});
-            navigation.navigate('Home');
+            props.dispatch({type: 'REMOVE_ALL'});
+            props.navigation.navigate('Home');
           },
         },
       ]);
@@ -78,12 +88,11 @@ const InsertHead = ({backPage, navigation, dispatch}) => {
       console.error(error);
     }
   };
-
   return (
     <Block>
       <FirstBlock>
-        <BackPageTouchableOpacity onPress={backPage}>
-          <Icon name="close" size={28} color={'#ffffff'} />
+        <BackPageTouchableOpacity onPress={props.backPage}>
+          <Icon name="close" size={28} color={props.fontColor} />
         </BackPageTouchableOpacity>
         <TitleTextInput
           placeholder="제목을 입력"
@@ -91,7 +100,7 @@ const InsertHead = ({backPage, navigation, dispatch}) => {
           value={title}
         />
         <ConfirmTouchableOpacity onPress={onSubmit}>
-          <ConfirmText>완료</ConfirmText>
+          <ConfirmText fontColor={props.fontColor}>완료</ConfirmText>
         </ConfirmTouchableOpacity>
       </FirstBlock>
     </Block>

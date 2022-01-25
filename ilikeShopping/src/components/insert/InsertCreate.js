@@ -67,6 +67,7 @@ const AddTouchableOpacity = styled.TouchableOpacity`
   justify-content: center;
   bottom: 8px;
   align-self: center;
+  elevation: 2;
   ${props =>
     props.memoInputOpen &&
     css`
@@ -86,6 +87,7 @@ const ColorTouchableOpacity = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   align-self: center;
+  elevation: 2;
   ${props =>
     props.backgroundColor &&
     css`
@@ -109,6 +111,7 @@ const InsertCreate = props => {
   const nextId = useCheckNextId();
 
   const onToggle = () => {
+    setColorSelectOpen(false);
     setProductName('');
     setAmount('');
     setMemoInputOpen(!memoInputOpen);
@@ -155,14 +158,19 @@ const InsertCreate = props => {
           </InsertForm>
         </Block>
       )}
-      {colorSelectOpen && <ColorPicker currentColor={props.backgroundColor} />}
+      {colorSelectOpen && (
+        <ColorPicker
+          currentColor={props.backgroundColor}
+          onColorPick={props.onColorPick}
+        />
+      )}
       <AddTouchableOpacity onPress={onToggle} open={memoInputOpen}>
         <AddText>+</AddText>
       </AddTouchableOpacity>
       <ColorTouchableOpacity
         onPress={onColorPickToggle}
         backgroundColor={props.backgroundColor}>
-        <Icon name="color-palette-outline" size={20} color="#ffffff" />
+        <Icon name="color-palette-outline" size={20} color={props.fontColor} />
       </ColorTouchableOpacity>
     </>
   );

@@ -12,7 +12,6 @@ const Block = styled.View`
 `;
 
 const Form = styled.View`
-  flex-direction: row;
   background-color: #eeeeee;
   padding: 10px;
   padding-bottom: 40px;
@@ -24,7 +23,10 @@ const ColorPicker = props => {
   return (
     <Block>
       <Form>
-        <ColorPickList />
+        <ColorPickList
+          currentColor={props.currentColor}
+          onColorPick={props.onColorPick}
+        />
       </Form>
     </Block>
   );

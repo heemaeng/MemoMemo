@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 
 const Block = styled.View`
   padding-vertical: 14px;
@@ -13,13 +12,17 @@ const Block = styled.View`
 const CountText = styled.Text`
   font-weight: 700;
   font-size: 16px;
-  color: #ffffff;
+  ${props =>
+    props.fontColor &&
+    css`
+      color: ${props.fontColor};
+    `}
 `;
 
 const DetailBottom = props => {
   return (
     <Block>
-      <CountText>
+      <CountText fontColor={props.fontColor}>
         {props.memoItemCheckCount} /{props.memoItemCount}
       </CountText>
     </Block>

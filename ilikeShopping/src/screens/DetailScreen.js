@@ -22,13 +22,14 @@ const DetailScreen = ({route, navigation}) => {
   const [memoItem, setMemoItem] = useState([]);
   const [memoItemCount, setMemoItemCount] = useState(0);
   const [memoItemCheckCount, setMemoItemCheckCount] = useState(0);
-  const [backgroundColor, setBackgroundColor] = useState('tomato');
-
+  const [backgroundColor, setBackgroundColor] = useState(
+    route.params.backgroundColor,
+  );
+  const [fontColor, setFontColor] = useState(route.params.fontColor);
   const loadDataCallback = useCallback(async () => {
     try {
       const initMemoItem = [];
       const db = await getDBConnection();
-      // await createMemoItemTable(db);
       const storedMemoItemItems = await getMemoItemItems(
         db,
         route.params.memoCode,
@@ -83,9 +84,10 @@ const DetailScreen = ({route, navigation}) => {
 
   return (
     <ScreenSafeAreaView>
-      <DetailTemplate>
+      <DetailTemplate backgroundColor={backgroundColor}>
         <DetailHead
           backPage={() => navigation.navigate('Home')}
+          fontColor={fontColor}
           title={route.params.title}
           createDate={route.params.createDate}
         />
@@ -96,6 +98,7 @@ const DetailScreen = ({route, navigation}) => {
           onToggle={onToggle}
         />
         <DetailBottom
+          fontColor={fontColor}
           memoItemCount={memoItemCount}
           memoItemCheckCount={memoItemCheckCount}
         />

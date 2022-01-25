@@ -33,6 +33,25 @@ export const getMemoItemItems = async (db, memoCode) => {
   }
 };
 
+export const getAllMemoItemItems = async db => {
+  try {
+    const memoItemItems = [];
+    const selectQuery = `SELECT * FROM ${tablename}`;
+    const results = await db.executeSql(selectQuery);
+    results.forEach(result => {
+      if (result.rows.length > 0) {
+        for (let index = 0; index < result.rows.length; index++) {
+          memoItemItems.push(result.rows.item(index));
+        }
+      }
+    });
+    return memoItemItems;
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to get MemoItemItems');
+  }
+};
+
 export const getMemoItemCheck = async (db, memoCode) => {
   try {
     let memoItemCheck = [];

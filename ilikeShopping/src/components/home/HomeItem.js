@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {Text, View} from 'react-native';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {getDBConnection} from '../../api/dbService/dbConnection';
 import {
@@ -12,11 +11,15 @@ import {useIsFocused} from '@react-navigation/native';
 const ItemTouchableOpacity = styled.TouchableOpacity``;
 
 const Block = styled.View`
-  background-color: tomato;
   padding: 20px;
   flex-direction: row;
   border-color: #9e9e9e;
   border-radius: 10px;
+  ${props =>
+    props.backgroundColor &&
+    css`
+      background-color: ${props.backgroundColor};
+    `}
 `;
 const CautionMark = styled.View`
   position: absolute;
@@ -32,13 +35,21 @@ const LeftBlock = styled.View`
   background-color: transparent;
 `;
 const TitleText = styled.Text`
-  color: #ffffff;
   font-weight: 700;
   font-size: 18px;
+  ${props =>
+    props.fontColor &&
+    css`
+      color: ${props.fontColor};
+    `}
 `;
 const CreateDateText = styled.Text`
-  color: #ffffff;
   font-size: 14px;
+  ${props =>
+    props.fontColor &&
+    css`
+      color: ${props.fontColor};
+    `}
 `;
 const RightBlock = styled.View`
   background-color: transparent;
@@ -46,8 +57,12 @@ const RightBlock = styled.View`
 `;
 const CountText = styled.Text`
   background-color: transparent;
-  color: #ffffff;
   font-size: 14px;
+  ${props =>
+    props.fontColor &&
+    css`
+      color: ${props.fontColor};
+    `}
 `;
 const HomeItem = props => {
   const isFocused = useIsFocused();
@@ -74,18 +89,22 @@ const HomeItem = props => {
         props.navigation.navigate('Detail', {
           key: props.id,
           memoCode: props.memoCode,
+          backgroundColor: props.backgroundColor,
+          fontColor: props.fontColor,
           title: props.title,
           createDate: props.createDate,
         })
       }>
-      <Block>
+      <Block backgroundColor={props.backgroundColor}>
         {memoItemCheckCount !== memoItemCount && <CautionMark />}
         <LeftBlock>
-          <TitleText>{props.title}</TitleText>
-          <CreateDateText>{props.createDate}</CreateDateText>
+          <TitleText fontColor={props.fontColor}>{props.title}</TitleText>
+          <CreateDateText fontColor={props.fontColor}>
+            {props.createDate}
+          </CreateDateText>
         </LeftBlock>
         <RightBlock>
-          <CountText>
+          <CountText fontColor={props.fontColor}>
             {memoItemCheckCount} /{memoItemCount}
           </CountText>
         </RightBlock>

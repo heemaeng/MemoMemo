@@ -45,14 +45,23 @@ const TabBar = () => {
           borderTopWidth: 0,
         },
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: '#4c8c4a',
-        tabBarInactiveTintColor: '#171b24',
+        tabBarActiveTintColor: '#000000',
+        tabBarInactiveTintColor: '#000000',
         tabBarShowLabel: false,
       })}>
       <Tab.Screen name="Home" component={HomeScreen} options={{}} />
       <Tab.Screen
         name="Add"
         component={InsertScreen}
+        listeners={({navigation}) => ({
+          tabPress: e => {
+            // prevent default action
+            e.preventDefault();
+
+            // Do something with the `navigation` object
+            navigation.navigate('Insert');
+          },
+        })}
         options={{tabBarLabel: '메모추가'}}
       />
       <Tab.Screen
