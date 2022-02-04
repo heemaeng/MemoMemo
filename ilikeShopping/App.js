@@ -10,8 +10,8 @@ export default function App() {
   setTimeout(() => {
     SplashScreen.hide();
   }, 500);
-  StatusBar.setBackgroundColor('#bec5b7');
-  StatusBar.setBarStyle('dark-content');
+  StatusBar.setBackgroundColor('#fff');
+  // StatusBar.setBarStyle('dark-content');
   return (
     <CheckProvider>
       <SafeAreaView style={SafeViewAndroid.AndroidSafeArea}>

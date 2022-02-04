@@ -11,20 +11,20 @@ const Block = styled.View`
   margin-bottom: 10px;
 `;
 
-const CheckMarkTouchableOpacity = styled.TouchableOpacity`
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
-  border-color: #000222;
-  border-width: 2px;
-  margin-right: 10px;
-  ${props =>
-    props.checkValue &&
-    css`
-      border-color: #bdc192;
-      border-width: 12px;
-    `}
-`;
+// const CheckMarkTouchableOpacity = styled.TouchableOpacity`
+//   width: 22px;
+//   height: 22px;
+//   border-radius: 4px;
+//   border-color: #000222;
+//   border-width: 2px;
+//   margin-right: 10px;
+//   ${props =>
+//     props.checkValue &&
+//     css`
+//       border-color: #bdc192;
+//       border-width: 12px;
+//     `}
+// `;
 
 const ProductNameText = styled.Text`
   flex: 5;
@@ -43,7 +43,7 @@ const AmountText = styled.Text`
   font-size: 14px;
   font-weight: bold;
   color: #000222;
-  margin-right: 6px;
+  margin-right: 12px;
   ${props =>
     props.checkValue &&
     css`
@@ -58,20 +58,20 @@ const RemoveTouchableOpacity = styled.TouchableOpacity`
 
 const InsertItem = ({id, productName, amount, checkValue}) => {
   const dispatch = useCheckDispatch();
-  const onToggle = () => dispatch({type: 'TOGGLE', id});
+  // const onToggle = () => dispatch({type: 'TOGGLE', id});
   const onRemove = () => dispatch({type: 'REMOVE', id});
 
   return (
     <Block>
-      <CheckMarkTouchableOpacity onPress={onToggle}>
+      {/* <CheckMarkTouchableOpacity onPress={onToggle}>
         {checkValue && (
           <Icon name="checkmark-sharp" size={18} color="#000222" />
         )}
-      </CheckMarkTouchableOpacity>
+      </CheckMarkTouchableOpacity> */}
       <ProductNameText checkValue={checkValue}>{productName}</ProductNameText>
       <AmountText checkValue={checkValue}>{amount}</AmountText>
       <RemoveTouchableOpacity onPress={onRemove}>
-        <Icon name="trash" size={20} color="#dd2c00" />
+        <Icon name="close-circle-outline" size={24} color="#dd2c00" />
       </RemoveTouchableOpacity>
     </Block>
   );

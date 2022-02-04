@@ -1,4 +1,6 @@
 import {enablePromise} from 'react-native-sqlite-storage';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 const tablename = 'Memo';
 
@@ -30,6 +32,24 @@ export const getMemoItems = async db => {
   }
 };
 
+export const getSearchResultItems = async (db, textValue) => {
+  try {
+    const memoItems = [];
+    const results = await db.executeSql(
+      `SELECT * FROM ${tablename} WHERE title LIKE '%${textValue}%' ORDER BY createDate DESC`,
+    );
+    results.forEach(result => {
+      for (let index = 0; index < result.rows.length; index++) {
+        memoItems.push(result.rows.item(index));
+      }
+    });
+    return memoItems;
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to get MemoItems');
+  }
+};
+
 export const saveMemoItems = async (
   db,
   backgroundColor,
@@ -38,12 +58,10 @@ export const saveMemoItems = async (
   memoCode,
 ) => {
   const key = Math.random().toString(30).substr(2, 11);
-  const dt = new Date();
-  const createDate =
-    dt.getFullYear() + '. ' + (dt.getMonth() + 1) + '. ' + dt.getDate() + '.';
+  const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
   const insertQuery =
     `INSERT OR REPLACE INTO ${tablename}(key, memoCode, backgroundColor, fontColor, title, createDate) values` +
-    `('${key}', '${memoCode}', '${backgroundColor}', '${fontColor}',  '${title}', '${createDate}')`;
+    `('${key}', '${memoCode}', '${backgroundColor}', '${fontColor}',  '${title}', '${currentDate}')`;
   return db.executeSql(insertQuery);
 };
 

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Block = styled.View`
   margin-bottom: 18px;
 `;
-
 const FirstBlock = styled.View`
   flex-direction: row;
   align-items: flex-start;
@@ -21,7 +20,6 @@ const TitleBlock = styled.View`
   flex: 1;
   height: 100%;
 `;
-
 const TitleText = styled.Text`
   font-weight: 700;
   font-size: 20px;
@@ -31,7 +29,6 @@ const TitleText = styled.Text`
       color: ${props.fontColor};
     `}
 `;
-
 const CreateDateText = styled.Text`
   font-size: 14px;
   ${props =>
@@ -40,7 +37,6 @@ const CreateDateText = styled.Text`
       color: ${props.fontColor};
     `}
 `;
-
 const OptionMenuTouchableOpacity = styled.TouchableOpacity`
   align-items: flex-start;
 `;

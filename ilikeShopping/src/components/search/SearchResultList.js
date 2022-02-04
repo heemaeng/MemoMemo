@@ -1,38 +1,41 @@
 import React from 'react';
-import {FlatList} from 'react-native';
 import styled from 'styled-components/native';
-import HomeItem from './HomeItem';
+import SearchResultItem from './SearchResultItem';
+import SearchResultEmpty from './SearchResultEmpty';
+import {FlatList} from 'react-native';
 
 const Block = styled.View`
   flex: 1;
   background-color: #ffffff;
-  border-radius: 15px;
   padding: 10px;
-  padding-top: 0px;
   padding-bottom: 0px;
 `;
 
-const HomeList = props => {
+const SearchResultList = props => {
   const renderItem = ({item}) => {
     return (
-      <HomeItem
-        id={item.key}
-        key={item.key}
-        memoCode={item.memoCode}
-        backgroundColor={item.backgroundColor}
-        fontColor={item.fontColor}
+      <SearchResultItem
+        itemKey={item.key}
         title={item.title}
+        memoCode={item.memoCode}
+        fontColor={item.fontColor}
+        backgroundColor={item.backgroundColor}
         createDate={item.createDate}
         navigation={props.navigation}
       />
     );
   };
 
+  const ListEmptyComponent = () => {
+    return <SearchResultEmpty />;
+  };
+
   return (
     <Block>
       <FlatList
-        data={props.memo}
+        data={props.searchResultItem}
         renderItem={renderItem}
+        ListEmptyComponent={ListEmptyComponent}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       />
@@ -40,4 +43,4 @@ const HomeList = props => {
   );
 };
 
-export default HomeList;
+export default SearchResultList;

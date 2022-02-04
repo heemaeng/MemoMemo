@@ -64,7 +64,7 @@ const CountText = styled.Text`
       color: ${props.fontColor};
     `}
 `;
-const HomeItem = props => {
+const SearchResultItem = props => {
   const isFocused = useIsFocused();
   const [memoItemCount, setMemoItemCount] = useState(0);
   const [memoItemCheckCount, setMemoItemCheckCount] = useState(0);
@@ -113,4 +113,4 @@ const HomeItem = props => {
   );
 };
 
-export default HomeItem;
+export default SearchResultItem;

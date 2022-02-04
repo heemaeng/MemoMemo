@@ -23,7 +23,6 @@ const TabBar = () => {
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
-
           if (route.name === 'Home') {
             iconName = focused ? 'cart' : 'cart-outline';
             size = 29;
@@ -57,7 +56,6 @@ const TabBar = () => {
           tabPress: e => {
             // prevent default action
             e.preventDefault();
-
             // Do something with the `navigation` object
             navigation.navigate('Insert');
           },

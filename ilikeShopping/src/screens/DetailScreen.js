@@ -77,16 +77,11 @@ const DetailScreen = ({route, navigation}) => {
       console.error(error);
     }
   };
-
-  const onColorPick = () => {
-    console.log('onColorPick');
-  };
-
   return (
     <ScreenSafeAreaView>
       <DetailTemplate backgroundColor={backgroundColor}>
         <DetailHead
-          backPage={() => navigation.navigate('Home')}
+          backPage={() => navigation.goBack()}
           fontColor={fontColor}
           title={route.params.title}
           createDate={route.params.createDate}
