@@ -1,6 +1,7 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import DetailModal from './DetailModal';
 
 const Block = styled.View`
   margin-bottom: 18px;
@@ -37,11 +38,16 @@ const CreateDateText = styled.Text`
       color: ${props.fontColor};
     `}
 `;
+const OptionView = styled.View``;
 const OptionMenuTouchableOpacity = styled.TouchableOpacity`
   align-items: flex-start;
 `;
-
 const DetailHead = ({backPage, ...props}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [viewHeight, setViewHeight] = useState(0);
+  const modalButton = () => {
+    setModalVisible(true);
+  };
   return (
     <Block>
       <FirstBlock>
@@ -54,9 +60,21 @@ const DetailHead = ({backPage, ...props}) => {
             {props.createDate}
           </CreateDateText>
         </TitleBlock>
-        <OptionMenuTouchableOpacity>
-          <Icon name="ellipsis-vertical" size={20} color={props.fontColor} />
-        </OptionMenuTouchableOpacity>
+        <OptionView
+          onLayout={event => {
+            const layout = event.nativeEvent.layout;
+            setViewHeight(Math.round(layout.height));
+          }}>
+          <OptionMenuTouchableOpacity onPress={modalButton}>
+            <Icon name="ellipsis-vertical" size={20} color={props.fontColor} />
+          </OptionMenuTouchableOpacity>
+        </OptionView>
+
+        <DetailModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          viewHeight={viewHeight}
+        />
       </FirstBlock>
     </Block>
   );

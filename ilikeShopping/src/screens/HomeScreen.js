@@ -18,7 +18,7 @@ import {
   deleteSearchHistoryTable,
 } from '../api/dbService/searchHistoryDBService';
 import BottomSheet from '../components/home/BottomSheet';
-import HomeModal from '../components/home/Modal';
+import HomeModal from '../components/home/HomeModal';
 const Block = styled.View`
   flex: 1;
   padding: 0;
@@ -30,6 +30,8 @@ const HomeScreen = ({navigation}) => {
   const isFocused = useIsFocused();
   const [memo, setMemo] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectVisible, setSelectVisible] = useState(false);
+  const [selectMemoCount, setSelectMemoCount] = useState(0);
   const loadDataCallback = useCallback(async () => {
     // const db = await getDBConnection();
     // await deleteMemoTable(db);
@@ -56,13 +58,28 @@ const HomeScreen = ({navigation}) => {
     setModalVisible(true);
   };
 
+  const sendButton = () => {
+    setSelectVisible(true);
+  };
+
+  const cancelButton = () => {
+    setSelectVisible(false);
+  };
   useEffect(() => {
     loadDataCallback();
   }, [loadDataCallback, isFocused]);
 
   return (
     <Block>
-      <HomeHead navigation={navigation} swapButton={swapButton} />
+      <HomeHead
+        navigation={navigation}
+        swapButton={swapButton}
+        sendButton={sendButton}
+        cancelButton={cancelButton}
+        selectMode={selectVisible}
+        selectMemoCount={selectMemoCount}
+        setSelectMemoCount={setSelectMemoCount}
+      />
       <HomeList memo={memo} navigation={navigation} />
       {/* <BottomSheet
         modalVisible={modalVisible}

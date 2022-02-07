@@ -8,7 +8,7 @@ const Block = styled.View`
   background-color: #ffffff;
   border-radius: 15px;
   padding: 10px;
-  padding-top: 0px;
+  padding-top: 10px;
   padding-bottom: 0px;
 `;
 
