@@ -10,6 +10,7 @@ import {
   getSearchHistoryItems,
   saveSearchHistoryItems,
 } from '../api/dbService/searchHistoryDBService';
+import WarnAlert from '../components/alert/WarnAlert';
 import SearchHead from '../components/search/SearchHead';
 import SearchHistoryList from '../components/search/SearchHistoryList';
 import SearchResultList from '../components/search/SearchResultList';
@@ -23,6 +24,7 @@ const SearchScreen = ({navigation}) => {
   const [searchHistoryItem, setSearchHistoryItem] = useState([]);
   const [searchResultItem, setSearchResultItem] = useState([]);
   const [searchHistoryShow, setSearchHistoryShow] = useState(true);
+  const [warnModalVisible, setWarnModalVisible] = useState(false);
 
   const loadSearchDataCallback = useCallback(async () => {
     try {
@@ -90,6 +92,8 @@ const SearchScreen = ({navigation}) => {
           saveSearchHistoryData={saveSearchHistoryData}
           loadMemoDataCallback={loadMemoDataCallback}
           searchHistoryComponentShow={searchHistoryComponentShow}
+          warnModalVisible={warnModalVisible}
+          setWarnModalVisible={setWarnModalVisible}
         />
         {searchHistoryShow ? (
           <SearchHistoryList
@@ -103,6 +107,11 @@ const SearchScreen = ({navigation}) => {
             navigation={navigation}
           />
         )}
+        <WarnAlert
+          subText="Please enter the search word"
+          modalVisible={warnModalVisible}
+          setModalVisible={setWarnModalVisible}
+        />
       </SearchTemplate>
     </ScreenSafeAreaView>
   );

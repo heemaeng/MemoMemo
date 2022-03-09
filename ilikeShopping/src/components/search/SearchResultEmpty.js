@@ -3,21 +3,21 @@ import styled from 'styled-components/native';
 
 const Block = styled.View`
   flex: 1;
-  background-color: #e2e2e2;
+  background-color: transparent;
   height: 500px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const EmptyText = styled.Text`
-  flex: 1;
-  align-self: center;
+  font-size: 16px;
 `;
 
 const SearchResultEmpty = () => {
   return (
     <Block>
-      <EmptyText>
-        결과를 찾을 수 없습니다.다른 검색어를 입력해 보세요.
-      </EmptyText>
+      <EmptyText>No results were found.</EmptyText>
+      <EmptyText>Enter a different search word.</EmptyText>
     </Block>
   );
 };

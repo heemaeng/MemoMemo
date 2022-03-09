@@ -31,7 +31,7 @@ const SearchHistoryList = props => {
   return (
     <Block>
       <HeadView>
-        <HeadText>최근 검색</HeadText>
+        <HeadText>Recent search</HeadText>
       </HeadView>
       <FlatList
         data={props.searchHistoryItem}

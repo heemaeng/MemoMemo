@@ -1,16 +1,13 @@
 import React from 'react';
 import styled, {css} from 'styled-components/native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Block = styled.View`
-  border-bottom-color: #bbb;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: flex-start;
 `;
-
-const CheckmarkTouchableOpacity = styled.TouchableOpacity`
+const CheckmarkTouchableView = styled.View`
   width: 22px;
   height: 22px;
   border-radius: 4px;
@@ -20,13 +17,26 @@ const CheckmarkTouchableOpacity = styled.TouchableOpacity`
   ${props =>
     props.checkValue &&
     css`
-      border-color: #bdc192;
-      border-width: 12px;
+      border-color: #3dc86b;
     `}
 `;
-
-const ProductNameText = styled.Text`
+const ProductNameView = styled.View`
+  flex: 1;
+  ${props =>
+    props.checkValue &&
+    css`
+      background-color: #e2e2e2;
+    `}
+`;
+const WrapText = styled.Text`
   flex: 5;
+  margin-right: 6px;
+`;
+const ProductNamePressable = styled.Pressable`
+  flex: 5;
+  margin-bottom: 20px;
+`;
+const ProductNameText = styled.Text`
   font-size: 16px;
   font-weight: bold;
   color: #000222;
@@ -34,40 +44,46 @@ const ProductNameText = styled.Text`
   ${props =>
     props.checkValue &&
     css`
-      text-decoration: line-through;
+      color: #e2e2e2;
     `}
-`;
-
-const AmountText = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-  color: #000222;
-  margin-right: 10px;
   ${props =>
-    props.checkValue &&
+    props.bookMark &&
     css`
-      text-decoration: line-through;
+      background-color: #bfff00;
     `}
 `;
 
-const DetailItem = props => {
+const DetailItem = ({
+  id,
+  itemKey,
+  productName,
+  checkValue,
+  bookMark,
+  onToggle,
+}) => {
   return (
-    <Block>
-      <CheckmarkTouchableOpacity
-        onPress={() =>
-          props.onToggle(props.itemKey, Boolean(props.checkValue))
-        }>
-        {Boolean(props.checkValue) && (
-          <Icon name="checkmark-sharp" size={18} color="#000222" />
-        )}
-      </CheckmarkTouchableOpacity>
-      <ProductNameText checkValue={Boolean(props.checkValue)}>
-        {props.productName}
-      </ProductNameText>
-      <AmountText checkValue={Boolean(props.checkValue)}>
-        {props.amount}
-      </AmountText>
-    </Block>
+    <ProductNamePressable
+      style={({pressed}) => [
+        {backgroundColor: pressed ? 'rgb(210,230,255)' : 'transparent'},
+      ]}
+      onPress={() => onToggle(itemKey, Boolean(checkValue))}>
+      <Block>
+        <CheckmarkTouchableView checkValue={checkValue}>
+          {Boolean(checkValue) && (
+            <FontAwesome name="check" size={18} color="#3dc86b" />
+          )}
+        </CheckmarkTouchableView>
+        <ProductNameView>
+          <WrapText>
+            <ProductNameText
+              checkValue={Boolean(checkValue)}
+              bookMark={Boolean(bookMark)}>
+              {productName}
+            </ProductNameText>
+          </WrapText>
+        </ProductNameView>
+      </Block>
+    </ProductNamePressable>
   );
 };
 

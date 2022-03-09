@@ -5,7 +5,7 @@ const tablename = 'MemoItem';
 enablePromise(true);
 
 export const createMemoItemTable = async db => {
-  const query = `CREATE TABLE IF NOT EXISTS ${tablename}(key VARCHAR(150) UNIQUE, memoCode VARCHAR(150), productName VARCAHR(150), amount VARCHAR(10), checkValue INTEGER(1))`;
+  const query = `CREATE TABLE IF NOT EXISTS ${tablename}(key VARCHAR(150) PRIMARY KEY, memoCode VARCHAR(150), productName VARCAHR(150), checkValue INTEGER(1), bookMark INTEGER(1))`;
   await db.executeSql(query);
 };
 
@@ -24,6 +24,9 @@ export const getMemoItemItems = async (db, memoCode) => {
         for (let index = 0; index < result.rows.length; index++) {
           memoItemItems.push(result.rows.item(index));
         }
+        memoItemItems.map((data, index) => {
+          data.id = index;
+        });
       }
     });
     return memoItemItems;
@@ -72,16 +75,57 @@ export const getMemoItemCheck = async (db, memoCode) => {
 
 export const saveMemoItemItems = async (db, memoItemItems, memoCode) => {
   const insertQuery =
-    `INSERT OR REPLACE INTO ${tablename}(key, memoCode, productName, amount, checkValue) values` +
+    `INSERT OR REPLACE INTO ${tablename}(key, memoCode, productName, checkValue, bookMark) values` +
     memoItemItems
       .map(
         i =>
-          `('${i.key}', '${memoCode}', '${i.productName}', '${
-            i.amount
-          }', ${Number(i.checkValue)})`,
+          `('${i.key}', '${memoCode}', '${i.productName}',  ${Number(
+            i.checkValue,
+          )}, ${Number(i.bookMark)})`,
       )
       .join(',');
   return db.executeSql(insertQuery);
+};
+
+export const updateMemoItemItems = async (db, memoItemItems, memoCode) => {
+  if (memoItemItems.length > 0) {
+    const insertQuery =
+      `INSERT OR REPLACE INTO ${tablename}(key, memoCode, productName, checkValue, bookMark) values` +
+      memoItemItems
+        .map(
+          i =>
+            `('${i.key}', '${memoCode}', '${i.productName}',  ${Number(
+              i.checkValue,
+            )}, ${Number(i.bookMark)})`,
+        )
+        .join(',');
+    await db.executeSql(insertQuery);
+  }
+
+  let allMemoItemKeys = [];
+  const selectQuery = `SELECT key FROM ${tablename} WHERE memoCode = '${memoCode}'`;
+  const results = await db.executeSql(selectQuery);
+
+  results.forEach(result => {
+    if (result.rows.length > 0) {
+      for (let index = 0; index < result.rows.length; index++) {
+        allMemoItemKeys.push(result.rows.item(index));
+      }
+    }
+  });
+
+  let deleteMemoItemKeys = allMemoItemKeys
+    .map(input => input.key)
+    .filter(x => !memoItemItems.map(input => input.key).includes(x));
+
+  if (deleteMemoItemKeys.length > 0) {
+    const deleteQuery =
+      `DELETE FROM ${tablename} WHERE key IN ` +
+      '(' +
+      deleteMemoItemKeys.map(i => `'${i}'`).join(',') +
+      ')';
+    await db.executeSql(deleteQuery);
+  }
 };
 
 export const deleteMemoItemItem = async (db, key) => {

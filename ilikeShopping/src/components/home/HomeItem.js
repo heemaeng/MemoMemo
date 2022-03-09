@@ -6,6 +6,7 @@ import {
   getMemoItemCheck,
 } from '../../api/dbService/memoItemDBService';
 import {useIsFocused} from '@react-navigation/native';
+import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ItemTouchableOpacity = styled.TouchableOpacity``;
 
@@ -20,6 +21,11 @@ const Block = styled.View`
     css`
       background-color: ${props.backgroundColor};
     `}
+`;
+const CheckMark = styled.TouchableOpacity`
+  position: absolute;
+  top: 2px;
+  left: 6px;
 `;
 const CautionMark = styled.View`
   position: absolute;
@@ -68,6 +74,7 @@ const HomeItem = props => {
   const isFocused = useIsFocused();
   const [memoItemCount, setMemoItemCount] = useState(0);
   const [memoItemCheckCount, setMemoItemCheckCount] = useState(0);
+  const [memoCheck, setMemoCheck] = useState(false);
 
   const countDataCallback = useCallback(async () => {
     const db = await getDBConnection();
@@ -85,18 +92,42 @@ const HomeItem = props => {
 
   return (
     <ItemTouchableOpacity
-      onPress={() =>
-        props.navigation.navigate('Detail', {
-          key: props.id,
-          memoCode: props.memoCode,
-          backgroundColor: props.backgroundColor,
-          fontColor: props.fontColor,
-          title: props.title,
-          createDate: props.createDate,
-        })
-      }>
+      onPress={() => {
+        if (props.selectMode) {
+          setMemoCheck(!memoCheck);
+        } else {
+          props.navigation.navigate('Detail', {
+            memoKey: props.memoKey,
+            memoCode: props.memoCode,
+            backgroundColor: props.backgroundColor,
+            fontColor: props.fontColor,
+            title: props.title,
+            createDate: props.createDate,
+          });
+        }
+      }}>
       <Block backgroundColor={props.backgroundColor}>
         {memoItemCheckCount !== memoItemCount && <CautionMark />}
+        {props.selectMode && (
+          <CheckMark
+            onPress={() => {
+              setMemoCheck(!memoCheck);
+            }}>
+            {memoCheck ? (
+              <MaterialCommunityIconsIcon
+                name="checkbox-blank"
+                color={props.fontColor}
+                size={22}
+              />
+            ) : (
+              <MaterialCommunityIconsIcon
+                name="checkbox-blank-outline"
+                color={props.fontColor}
+                size={22}
+              />
+            )}
+          </CheckMark>
+        )}
         <LeftBlock>
           <TitleText fontColor={props.fontColor}>{props.title}</TitleText>
           <CreateDateText fontColor={props.fontColor}>

@@ -29,8 +29,8 @@ const TabBar = () => {
           } else if (route.name === 'Add') {
             iconName = focused ? 'add-circle' : 'add-circle-outline';
             size = 30;
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
+            // } else if (route.name === 'Settings') {
+            //   iconName = focused ? 'settings' : 'settings-outline';
           } else {
           }
           return <Icon name={iconName} color={color} size={size} />;
@@ -62,13 +62,13 @@ const TabBar = () => {
         })}
         options={{tabBarLabel: '메모추가'}}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
           tabBarLabel: '설정',
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

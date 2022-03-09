@@ -3,8 +3,6 @@ import styled, {css} from 'styled-components/native';
 
 const Block = styled.View`
   flex: 1;
-  /* background-color: tomato; */
-  padding: 12px;
   padding-bottom: 32px;
   ${props =>
     props.backgroundColor &&

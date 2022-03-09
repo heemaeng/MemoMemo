@@ -25,8 +25,8 @@ const ColorPickList = props => {
       <FlatList
         data={ColorData}
         renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
+        showsHorizontalScrollIndicator
+        horizontal
       />
     </Block>
   );

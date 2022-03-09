@@ -69,11 +69,15 @@ const DetailHead = ({backPage, ...props}) => {
             <Icon name="ellipsis-vertical" size={20} color={props.fontColor} />
           </OptionMenuTouchableOpacity>
         </OptionView>
-
         <DetailModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
+          deleteModalVisible={props.deleteModalVisible}
+          setDeleteModalVisible={props.setDeleteModalVisible}
           viewHeight={viewHeight}
+          updatePage={props.updatePage}
+          memoItem={props.memoItem}
+          memoTitle={props.memoTitle}
         />
       </FirstBlock>
     </Block>

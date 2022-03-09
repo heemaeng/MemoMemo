@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Alert} from 'react-native';
 
 const Block = styled.View`
-  background-color: #e7e9eb;
+  background-color: #fff;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
@@ -44,7 +44,7 @@ const SearchHead = props => {
       </BackIconTouchableOpacity>
       <SearchView>
         <SearchTextInput
-          placeholder="검색"
+          placeholder="Search"
           placeholderTextColor="#868687"
           selectionColor="#4b8c4a"
           onChangeText={text => {
@@ -59,7 +59,7 @@ const SearchHead = props => {
               props.saveSearchHistoryData(textValue);
               props.loadMemoDataCallback(textValue);
             } else {
-              Alert.alert('경고', '검색어를 입력해주세요', [{text: '확인'}]);
+              props.setWarnModalVisible(!props.warnModalVisible);
             }
           }}
         />

@@ -1,6 +1,13 @@
 import React, {useReducer, createContext, useContext, useRef} from 'react';
 
-const initialCheck = [];
+// const initialCheck = [
+// {
+//   checkValue: 1,
+//   key: 'qft7n3sptrf',
+//   memoCode: 'i41h31fjf8h',
+//   productName: 'memoItem2',
+// },
+// ];
 
 const checkReducer = (state, action) => {
   switch (action.type) {
@@ -24,11 +31,11 @@ const CheckStateContext = createContext();
 const CheckDispatchContext = createContext();
 const CheckNextIdContext = createContext();
 
-export const CheckProvider = ({children}) => {
+export const CheckProvider = ({children, initialCheck}) => {
   const [state, dispatch] = useReducer(checkReducer, initialCheck);
   // useRef 사용법
   // https://velog.io/@mnz/React-useRef-%EA%B0%9C%EB%85%90%EB%B6%80%ED%84%B0-%ED%99%9C%EC%9A%A9%EA%B9%8C%EC%A7%80
-  const nextId = useRef(0);
+  const nextId = useRef(initialCheck.length);
 
   return (
     <CheckStateContext.Provider value={state}>

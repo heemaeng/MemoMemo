@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {StatusBar} from 'react-native';
+import {Image, StatusBar} from 'react-native';
 
 const Block = styled.View`
   background-color: #ffffff;
@@ -15,7 +15,6 @@ const Block = styled.View`
       background-color: #20232a;
     `}
 `;
-
 const LogoText = styled.Text`
   flex: 1;
   color: #171b24;
@@ -46,44 +45,50 @@ const DeleteTouchableOpacity = styled.TouchableOpacity`
 const SearchLogoTouchableOpacity = styled.TouchableOpacity`
   margin-left: 8px;
 `;
+const HeaderImg = styled.Image`
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+`;
 const HomeHead = props => {
-  if (props.selectMode) {
-    StatusBar.setBackgroundColor('#20232a');
-    StatusBar.setBarStyle();
-  } else {
-    StatusBar.setBackgroundColor('#fff');
-    StatusBar.setBarStyle('dark-content');
-  }
-
   return (
     <Block selectMode={props.selectMode}>
       <HeaderView>
         {props.selectMode ? (
           <>
-            <SelectTouchableOpacity>
-              <MaterialCommunityIconsIcon
-                name="checkbox-blank-outline"
-                color={'#fff'}
-                size={26}
-              />
+            <SelectTouchableOpacity onPress={props.allCheck}>
+              {props.memoAllCheck ? (
+                <MaterialCommunityIconsIcon
+                  name="checkbox-blank"
+                  color={'#fff'}
+                  size={26}
+                />
+              ) : (
+                <MaterialCommunityIconsIcon
+                  name="checkbox-blank-outline"
+                  color={'#fff'}
+                  size={26}
+                />
+              )}
             </SelectTouchableOpacity>
-            <SelectText>{props.selectMemoCount}개 선택</SelectText>
+            <SelectText>{props.selectMemoCount} Selection</SelectText>
+            <DeleteTouchableOpacity>
+              <Icon name="trash-bin" color={'#fff'} size={26} />
+            </DeleteTouchableOpacity>
             <CancelTouchableOpacity onPress={() => props.cancelButton()}>
               <Icon name="close-outline" color={'#fff'} size={26} />
             </CancelTouchableOpacity>
           </>
         ) : (
           <>
-            <LogoText>메모</LogoText>
-            <SwapVerticalTouchableOpacity onPress={() => props.swapButton()}>
+            <LogoText>
+              <HeaderImg
+                source={require('../../assets/images/header_logo.png')}
+              />
+            </LogoText>
+            {/* <SwapVerticalTouchableOpacity onPress={() => props.swapButton()}>
               <Icon name="swap-vertical" color={'#171b24'} size={26} />
-            </SwapVerticalTouchableOpacity>
-            <SendTouchableOpacity onPress={() => props.sendButton()}>
-              <Icon name="paper-plane" color={'#171b24'} size={26} />
-            </SendTouchableOpacity>
-            <DeleteTouchableOpacity>
-              <Icon name="trash-bin" color={'#171b24'} size={26} />
-            </DeleteTouchableOpacity>
+            </SwapVerticalTouchableOpacity> */}
             <SearchLogoTouchableOpacity
               onPress={() => props.navigation.navigate('Search')}>
               <Icon name="search" color={'#171b24'} size={26} />

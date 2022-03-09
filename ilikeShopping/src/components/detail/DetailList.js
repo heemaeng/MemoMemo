@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, ScrollView} from 'react-native';
 import styled from 'styled-components/native';
 import DetailItem from './DetailItem';
 
@@ -21,27 +21,56 @@ const CautionMark = styled.View`
 `;
 
 const DetailList = props => {
-  const renderItem = ({item}) => {
-    return (
-      <DetailItem
-        itemKey={item.key}
-        productName={item.productName}
-        amount={item.amount}
-        checkValue={item.checkValue}
-        onToggle={props.onToggle}
-      />
-    );
-  };
-
+  // const renderItem = ({item}) => {
+  //   return (
+  //     <DetailItem
+  //       itemKey={item.key}
+  //       productName={item.productName}
+  //       checkValue={item.checkValue}
+  //       onToggle={props.onToggle}
+  //       bookMark={item.bookMark}
+  //     />
+  //   );
+  // };
   return (
     <Block>
       {props.memoItemCheckCount !== props.memoItemCount && <CautionMark />}
-      <FlatList
+      {/* <FlatList
         data={props.memoItem}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-      />
+        showsVerticalScrollIndicator
+      /> */}
+      <ScrollView>
+        {props.memoItem &&
+          props.memoItem
+            .filter(data => data.bookMark)
+            .map(data => (
+              <DetailItem
+                id={data.id}
+                key={data.id}
+                itemKey={data.key}
+                productName={data.productName}
+                checkValue={data.checkValue}
+                bookMark={data.bookMark}
+                onToggle={props.onToggle}
+              />
+            ))}
+        {props.memoItem &&
+          props.memoItem
+            .filter(data => !data.bookMark)
+            .map(data => (
+              <DetailItem
+                id={data.id}
+                key={data.id}
+                itemKey={data.key}
+                productName={data.productName}
+                checkValue={data.checkValue}
+                bookMark={data.bookMark}
+                onToggle={props.onToggle}
+              />
+            ))}
+      </ScrollView>
     </Block>
   );
 };

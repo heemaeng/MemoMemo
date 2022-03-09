@@ -1,18 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled, {css} from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useCheckState} from '../../hooks/AppContext';
-import {Alert} from 'react-native';
-import {getDBConnection} from '../../api/dbService/dbConnection';
-import {saveMemoItems} from '../../api/dbService/memoDBService';
-import {saveMemoItemItems} from '../../api/dbService/memoItemDBService';
+import {useCheckDispatch} from '../../hooks/AppContext';
 
 const Block = styled.View`
   flex-direction: row;
   align-items: center;
   background-color: transparent;
   justify-content: space-between;
-  margin-bottom: 18px;
+  padding: 12px;
+  padding-bottom: 9px;
+  margin-bottom: 9px;
 `;
 
 const FirstBlock = styled.View`
@@ -29,16 +27,19 @@ const BackPageTouchableOpacity = styled.TouchableOpacity`
 
 const TitleTextInput = styled.TextInput`
   padding: 0;
-  background-color: #fff;
   flex: 1;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
   color: #000222;
-  border-radius: 6px;
   padding-right: 12px;
-  padding-left: 12px;
-  border-width: 1px;
-  border-color: #fafafa;
+  border-bottom-width: 1px;
+
+  ${props =>
+    props.fontColor &&
+    css`
+      border-color: ${props.fontColor};
+      color: ${props.fontColor};
+    `}
 `;
 
 const ConfirmTouchableOpacity = styled.TouchableOpacity`
@@ -47,60 +48,31 @@ const ConfirmTouchableOpacity = styled.TouchableOpacity`
   margin-left: 12px;
 `;
 
-const ConfirmText = styled.Text`
-  font-weight: 700;
-  font-size: 14px;
-  ${props =>
-    props.fontColor &&
-    css`
-      color: ${props.fontColor};
-    `}
-`;
-
 const InsertHead = props => {
-  const checks = useCheckState();
-  const [title, setTitle] = useState('');
-  const onSubmit = async () => {
-    if (!title.trim()) {
-      return Alert.alert('경고', '제목을 입력해주세요', [{text: '확인'}]);
-    }
-    try {
-      const db = await getDBConnection();
-      const memoCode = Math.random().toString(20).substr(2, 11);
-      await saveMemoItemItems(db, checks, memoCode);
-      await saveMemoItems(
-        db,
-        props.backgroundColor,
-        props.fontColor,
-        title,
-        memoCode,
-      );
-      return Alert.alert('성공', '작성완료', [
-        {
-          text: '확인',
-          onPress: () => {
-            props.dispatch({type: 'REMOVE_ALL'});
-            props.navigation.navigate('Home');
-          },
-        },
-      ]);
-    } catch (error) {
-      console.error(error);
-    }
+  const dispatch = useCheckDispatch();
+  const backPage = () => {
+    dispatch({type: 'REMOVE_ALL'});
+    props.navigation.navigate('Home');
   };
   return (
     <Block>
       <FirstBlock>
-        <BackPageTouchableOpacity onPress={props.backPage}>
+        <BackPageTouchableOpacity onPress={backPage}>
           <Icon name="close" size={28} color={props.fontColor} />
         </BackPageTouchableOpacity>
         <TitleTextInput
-          placeholder="제목을 입력"
-          onChangeText={text => setTitle(text)}
-          value={title}
+          placeholder="Title"
+          placeholderTextColor="#999"
+          fontColor={props.fontColor}
+          onChangeText={text => props.setTitle(text)}
+          value={props.title}
         />
-        <ConfirmTouchableOpacity onPress={onSubmit}>
-          <ConfirmText fontColor={props.fontColor}>완료</ConfirmText>
+        <ConfirmTouchableOpacity onPress={props.onInsertModal}>
+          <Icon
+            name="checkmark-circle-outline"
+            size={28}
+            color={props.fontColor}
+          />
         </ConfirmTouchableOpacity>
       </FirstBlock>
     </Block>

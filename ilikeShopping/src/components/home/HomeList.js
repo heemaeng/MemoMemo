@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import styled from 'styled-components/native';
 import HomeItem from './HomeItem';
+import NoHomeItem from './NoHomeItem';
 
 const Block = styled.View`
   flex: 1;
@@ -12,30 +13,45 @@ const Block = styled.View`
   padding-bottom: 0px;
 `;
 
+const NotMemoTemplate = styled.View`
+  padding: 20px;
+  border-color: #9e9e9e;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: #e2e2e2;
+`;
+
 const HomeList = props => {
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     return (
       <HomeItem
-        id={item.key}
-        key={item.key}
+        index={index}
+        memoKey={item.key}
         memoCode={item.memoCode}
         backgroundColor={item.backgroundColor}
         fontColor={item.fontColor}
         title={item.title}
         createDate={item.createDate}
         navigation={props.navigation}
+        selectMode={props.selectMode}
+        memoAllCheck={props.memoAllCheck}
       />
     );
   };
 
   return (
     <Block>
-      <FlatList
-        data={props.memo}
-        renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-      />
+      {props.memo.length > 0 ? (
+        <FlatList
+          data={props.memo}
+          renderItem={renderItem}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator
+          keyExtractor={item => String(item.key)}
+        />
+      ) : (
+        <NoHomeItem navigation={props.navigation} />
+      )}
     </Block>
   );
 };

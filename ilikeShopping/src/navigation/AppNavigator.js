@@ -8,6 +8,8 @@ import TabBar from '../components/navigation/TabBar';
 import InsertScreen from '../screens/InsertScreen';
 import DetailScreen from '../screens/DetailScreen';
 import SearchScreen from '../screens/SearchScreen';
+import UpdateScreen from '../screens/UpdateScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 const RootStack = createStackNavigator();
 
@@ -19,7 +21,8 @@ const AppNavigator = () => {
           headerShown: false,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}>
-        <RootStack.Screen name="TabBar" component={TabBar} />
+        <RootStack.Screen name="Home" component={HomeScreen} />
+        {/* <RootStack.Screen name="TabBar" component={TabBar} /> */}
         <RootStack.Screen
           name="Insert"
           component={InsertScreen}
@@ -29,6 +32,7 @@ const AppNavigator = () => {
           }}
         />
         <RootStack.Screen name="Detail" component={DetailScreen} />
+        <RootStack.Screen name="Update" component={UpdateScreen} />
         <RootStack.Screen
           name="Search"
           component={SearchScreen}

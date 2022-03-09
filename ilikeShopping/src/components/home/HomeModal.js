@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Alert,
   Modal,
@@ -102,33 +102,34 @@ const CancelButton = props => {
 };
 
 const HomeModal = props => {
-  const {modalVisible, setModalVisible} = props;
+  const [timeSelect, setTimeSelect] = useState(false);
+  const [nameSelect, setNameSelect] = useState(false);
   return (
     <Modal
-      visible={modalVisible}
+      visible={props.modalVisible}
       animationType="fade"
       transparent
       statusBarTranslucent>
       <Overlay>
         <ModalView>
           <HeadView>
-            <TitleText>정렬</TitleText>
+            <TitleText>Range</TitleText>
           </HeadView>
           <OptionView>
-            <OptionItem label="시간순" />
-            <OptionItem label="이름순" />
+            <OptionItem label="Time" />
+            <OptionItem label="Name" />
           </OptionView>
           <OptionView borderColor="#000">
-            <OptionItem label="오름차순 (A -> Z)" />
-            <OptionItem label="내림차순 (Z -> A)" />
+            <OptionItem label="Ascending (A -> Z)" />
+            <OptionItem label="Descending (Z -> A)" />
           </OptionView>
           <ConfirmView>
             <CancelButton
-              label="취소"
-              modalVisible={modalVisible}
-              setModalVisible={setModalVisible}
+              label="No"
+              modalVisible={props.modalVisible}
+              setModalVisible={props.setModalVisible}
             />
-            <ConfirmButton label="확인" />
+            <ConfirmButton label="Yes" />
           </ConfirmView>
         </ModalView>
       </Overlay>
