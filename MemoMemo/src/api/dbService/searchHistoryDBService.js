@@ -39,7 +39,7 @@ export const saveSearchHistoryItems = async (db, searchWord) => {
   const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
   const insertQuery =
     `INSERT OR REPLACE INTO ${tablename}(key, searchWord, createDate) values` +
-    `('${key}', '${searchWord}', '${currentDate}')`;
+    `('${key}', '${searchWord.replace(/'/g, "''")}', '${currentDate}')`;
   return db.executeSql(insertQuery);
 };
 

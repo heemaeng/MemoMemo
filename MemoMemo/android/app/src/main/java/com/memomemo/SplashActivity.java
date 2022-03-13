@@ -1,4 +1,4 @@
-package com.ilikeshopping;
+package com.memomemo;
 
 import android.content.Intent;
 import android.os.Bundle;

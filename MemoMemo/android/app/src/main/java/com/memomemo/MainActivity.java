@@ -1,4 +1,4 @@
-package com.ilikeshopping;
+package com.memomemo;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;

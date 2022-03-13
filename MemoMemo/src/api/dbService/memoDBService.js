@@ -63,7 +63,10 @@ export const saveMemoItems = async (
   const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
   const insertQuery =
     `INSERT OR REPLACE INTO ${tablename}(key, memoCode, backgroundColor, fontColor, title, createDate) values` +
-    `('${key}', '${memoCode}', '${backgroundColor}', '${fontColor}',  '${title}', '${currentDate}')`;
+    `('${key}', '${memoCode}', '${backgroundColor}', '${fontColor}',  '${title.replace(
+      /'/g,
+      "''",
+    )}', '${currentDate}')`;
   return db.executeSql(insertQuery);
 };
 
@@ -74,7 +77,10 @@ export const updateMemoItems = async (
   fontColor,
   title,
 ) => {
-  const insertQuery = `UPDATE ${tablename} SET backgroundColor='${backgroundColor}', fontColor='${fontColor}', title='${title}' WHERE key='${key}'`;
+  const insertQuery = `UPDATE ${tablename} SET backgroundColor='${backgroundColor}', fontColor='${fontColor}', title='${title.replace(
+    /'/g,
+    "''",
+  )}' WHERE key='${key}'`;
   return db.executeSql(insertQuery);
 };
 

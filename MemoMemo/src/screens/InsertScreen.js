@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import InsertTemplate from '../components/insert/InsertTemplate';
 import InsertHead from '../components/insert/InsertHead';
 import InsertList from '../components/insert/InsertList';
@@ -42,6 +42,13 @@ const InsertScreen = ({navigation}) => {
     <CheckProvider initialCheck={[]}>
       <SafeAreaView style={SafeAreaViewStyle.container}>
         <InsertTemplate backgroundColor={backgroundColor}>
+          <StatusBar
+            barStyle="dark-content"
+            hidden={false}
+            backgroundColor={backgroundColor}
+            translucent={false}
+            networkActivityIndicatorVisible
+          />
           <InsertHead
             navigation={navigation}
             backgroundColor={backgroundColor}

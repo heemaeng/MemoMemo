@@ -85,12 +85,31 @@ const DetailModal = props => {
               props.setModalVisible(false);
               if (props.memoItem.length > 0) {
                 for (let i = 0; i < props.memoItem.length; i++) {
-                  memoItemText += props.memoItem[i].productName + '\n';
+                  if (props.memoItem[i].bookMark) {
+                    if (props.memoItem[i].checkValue) {
+                      memoItemText +=
+                        ' - ' +
+                        '*' +
+                        '[v] ' +
+                        props.memoItem[i].productName +
+                        '\n';
+                    } else {
+                      memoItemText +=
+                        ' - ' + '*' + props.memoItem[i].productName + '\n';
+                    }
+                  } else {
+                    if (props.memoItem[i].checkValue) {
+                      memoItemText +=
+                        ' - ' + '[v] ' + props.memoItem[i].productName + '\n';
+                    } else {
+                      memoItemText +=
+                        ' - ' + props.memoItem[i].productName + '\n';
+                    }
+                  }
                 }
               }
               const result = await Share.share({
-                message:
-                  props.memoTitle + "'s memo" + '\n' + ' - ' + memoItemText,
+                message: props.memoTitle + "'s memo" + '\n' + memoItemText,
               });
               if (result.action === Share.sharedAction) {
                 if (result.activityType) {
