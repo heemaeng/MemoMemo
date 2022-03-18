@@ -1,24 +1,18 @@
-## DataBase Create TABLE
+Google Play https://play.google.com/store/apps/details?id=com.memomemo
 
-Memo Table
-(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), title VARCAHR(150), createDate VARCHAR(10))
+개발 목표
 
-MemoItem Table
-(key VARCHAR(150) NOT NULL, memoCode VARCHAR(150), productName VARCAHR(150), amount VARCHAR(10), checkValue INTEGER(1))
+사용 기술
+- React Native
 
-## Field
+주요 기능
 
-<Memo>
+- 메모를 입력, 수정, 삭제
+sqlite를 이용하여 메모의 내용을 저장, 수정, 삭제
 
-key
-memoCode
-title
-createDate
+- 메모를 sns로 전송
 
-<MemoItem>
 
-key
-memoCode
-productName
-amount
-checkValue
+
+개선 사항
+- 메모를 입력하였을때 최근 입력 item을 보여줄 필요가 있음
