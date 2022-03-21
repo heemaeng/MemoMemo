@@ -1,13 +1,8 @@
-# MemoMemo 메모 관리 앱
+# MemoMemo 메모 관리 앱  
 
-React-Native를 이용한 메모 관리 앱 출시.
-
-
-
-- Demo : [Google Play](https://play.google.com/store/apps/details?id=com.memomemo) , ~~App Store~~ 
-
+React-Native를 이용한 메모 관리 앱 출시.  
+- Demo : [Google Play](https://play.google.com/store/apps/details?id=com.memomemo) , ~~App Store~~  
 프로젝트는 안드로이드에서만 출시되었습니다. 
-
 
 
 ### Latest Release (2022/03/21)  
