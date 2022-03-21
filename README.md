@@ -7,47 +7,47 @@ React-Native를 이용한 메모 관리 앱 출시.
 
 ### Latest Release (2022/03/21)  
 
-현재 버전은 v1.0.1 입니다.
+현재 버전은 v1.0.1 입니다.  
 
 
 
 ### 개발 목표
 
-React-Native의 다양한 컴포넌트와 Hooks 사용, sqlite를 활용한 데이터베이스 이해. 모바일 환경에서의 디자인 규칙 이해.
+React-Native의 다양한 컴포넌트와 Hooks 사용, sqlite를 활용한 데이터베이스 이해. 모바일 환경에서의 디자인 규칙 이해.  
 
 
 
 ### 사용 기술
 
-- React Native
+- React Native  
 
   
 
-### 주요 기능
+### 주요 기능  
 
 #### 1. 메모를 저장, 수정, 삭제
 
 
 
-- 메모 저장
+- 메모 저장  
 
   
 
-  ![save](https://user-images.githubusercontent.com/40458684/159290590-e073d0a3-db65-40c3-a284-81d421dd4923.gif)
+  ![save](https://user-images.githubusercontent.com/40458684/159290590-e073d0a3-db65-40c3-a284-81d421dd4923.gif)  
 
   
 
-- 메모 수정
+- 메모 수정  
 
   
 
-  ![update](https://user-images.githubusercontent.com/40458684/159290694-2fdd0367-660b-473b-9409-2c1dbf327e88.gif)
+  ![update](https://user-images.githubusercontent.com/40458684/159290694-2fdd0367-660b-473b-9409-2c1dbf327e88.gif)  
 
   
 
-- 메모 삭제
+- 메모 삭제  
 
-  ![delete](https://user-images.githubusercontent.com/40458684/159290719-dd3ca318-e937-447a-a8a0-f494155a469c.gif)
+  ![delete](https://user-images.githubusercontent.com/40458684/159290719-dd3ca318-e937-447a-a8a0-f494155a469c.gif)  
 
 
 
@@ -134,21 +134,21 @@ const onInsert = async () => {
       console.error(error);
     }
   };
-```
+```  
 
 
 
 Sqlite 라이브러리를 이용하여 사용자가 메모를 입력하고 저장했을때 메모 저장과 관련된 함수를 호출. 
 
-이와같은 방법으로 삭제, 수정이 이루어짐.
+이와같은 방법으로 삭제, 수정이 이루어짐.  
 
 
 
-#### 2. 메모를 sns로 전송
+#### 2. 메모를 sns로 전송  
 
 
 
-![share](https://user-images.githubusercontent.com/40458684/159290766-82e77a94-25c0-4e33-87e2-4e335c8732ab.gif)
+![share](https://user-images.githubusercontent.com/40458684/159290766-82e77a94-25c0-4e33-87e2-4e335c8732ab.gif)  
 
 
 
@@ -219,9 +219,9 @@ Sqlite 라이브러리를 이용하여 사용자가 메모를 입력하고 저�
         <FeatherIcon name="send" color={'#000000'} size={20} />
     </ContentView>
 </Pressable>
-```
+```  
 
-사용자가 Share 버튼을 눌렀을 때 현재 메모의 정보를 공유.
+사용자가 Share 버튼을 눌렀을 때 현재 메모의 정보를 공유.  
 
 
 
