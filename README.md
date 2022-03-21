@@ -38,7 +38,7 @@ React-Native의 다양한 컴포넌트와 Hooks 사용, sqlite를 활용한 데�
 
   
 
-  ![save](C:\Users\gml78\Downloads\save.gif)
+  ![save](https://user-images.githubusercontent.com/40458684/159290590-e073d0a3-db65-40c3-a284-81d421dd4923.gif)
 
   
 
@@ -46,13 +46,13 @@ React-Native의 다양한 컴포넌트와 Hooks 사용, sqlite를 활용한 데�
 
   
 
-  ![update](C:\Users\gml78\Downloads\update.gif)
+  ![update](https://user-images.githubusercontent.com/40458684/159290694-2fdd0367-660b-473b-9409-2c1dbf327e88.gif)
 
   
 
 - 메모 삭제
 
-  ![delete](C:\Users\gml78\Downloads\delete.gif)
+  ![delete](https://user-images.githubusercontent.com/40458684/159290719-dd3ca318-e937-447a-a8a0-f494155a469c.gif)
 
 
 
@@ -153,7 +153,7 @@ Sqlite 라이브러리를 이용하여 사용자가 메모를 입력하고 저�
 
 
 
-![share](C:\Users\gml78\Downloads\share.gif)
+![share](https://user-images.githubusercontent.com/40458684/159290766-82e77a94-25c0-4e33-87e2-4e335c8732ab.gif)
 
 
 
