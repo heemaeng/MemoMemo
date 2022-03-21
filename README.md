@@ -13,7 +13,8 @@ React-Native를 이용한 메모 관리 앱 출시.
 
 ### 개발 목표
 
-React-Native의 다양한 컴포넌트와 Hooks 사용, sqlite를 활용한 데이터베이스 이해. 모바일 환경에서의 디자인 규칙 이해.  
+React-Native의 다양한 컴포넌트와 Hooks 사용. 
+sqlite를 활용한 데이터베이스 와 모바일 환경에서의 디자인 규칙 이해.  
 
 
 
