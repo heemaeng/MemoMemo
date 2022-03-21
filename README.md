@@ -57,7 +57,8 @@ React-Native의 다양한 컴포넌트와 Hooks 사용, sqlite를 활용한 데�
 
 
 ```javascript
-[dbConnection.js]
+
+'dbConnection.js'
 
 ...
 
@@ -69,7 +70,7 @@ export const getDBConnection = async () => {
 };
 
 
-[memoDBService.js]
+'memoDBService.js'
 
 ...
 
@@ -101,7 +102,7 @@ export const saveMemoItems = async (
 };
 
 
-[InsertModal.js]
+'InsertModal.js'
 
 ...
 
